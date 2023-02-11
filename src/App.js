@@ -1,8 +1,9 @@
 import "./App.css";
-import Buttons from "./components/buttons/buttons.component";
 import ScoreTable from "./components/score-table/score-table.component";
 import TitleBar from "./components/title-bar/title-bar.component";
 import DiceMat from "./components/dice-mat/dice-mat.component";
+import { ScoresProvider } from "./contexts/scores.context";
+import { TurnStateProvider } from "./contexts/turn-state.context";
 
 function App() {
   return (
@@ -10,15 +11,14 @@ function App() {
       <TitleBar />
       <div className="game_board">
         <div className="score_zone">
-          <ScoreTable />
+          <ScoresProvider>
+            <ScoreTable />
+          </ScoresProvider>
         </div>
         <div className="zone middle">
-          <DiceMat dice="5" />
-          <Buttons></Buttons>
-          <div className="rolls-counter">
-            <p className="rolls-text">Rolls remaining:</p>
-            <p className="rolls-remaining">3</p>
-          </div>
+          <TurnStateProvider>
+            <DiceMat dice="5" />
+          </TurnStateProvider>
         </div>
         <form method="post" id="submit_form">
           <input type="text" id="field" name="field" className="hidden" />
