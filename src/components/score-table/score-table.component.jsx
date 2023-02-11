@@ -1,4 +1,7 @@
+import { ScoresContext } from "../../contexts/scores.context";
+
 const ScoreTable = () => {
+  const { scoreState, setScoreState } = useContext(ScoreContext);
   return (
     <table className="score_card">
       <tbody>

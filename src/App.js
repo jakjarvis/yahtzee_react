@@ -2,8 +2,6 @@ import "./App.css";
 import ScoreTable from "./components/score-table/score-table.component";
 import TitleBar from "./components/title-bar/title-bar.component";
 import DiceMat from "./components/dice-mat/dice-mat.component";
-import { ScoresProvider } from "./contexts/scores.context";
-import { TurnStateProvider } from "./contexts/turn-state.context";
 
 function App() {
   return (
@@ -11,14 +9,10 @@ function App() {
       <TitleBar />
       <div className="game_board">
         <div className="score_zone">
-          <ScoresProvider>
-            <ScoreTable />
-          </ScoresProvider>
+          <ScoreTable />
         </div>
         <div className="zone middle">
-          <TurnStateProvider>
-            <DiceMat dice="5" />
-          </TurnStateProvider>
+          <DiceMat dice="5" />
         </div>
         <form method="post" id="submit_form">
           <input type="text" id="field" name="field" className="hidden" />

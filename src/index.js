@@ -4,12 +4,18 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { GameStateProvider } from "./contexts/game-state.context";
+import { ScoresProvider } from "./contexts/scores.context";
+import { TurnStateProvider } from "./contexts/turn-state.context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <GameStateProvider>
-      <App />
+      <TurnStateProvider>
+        <ScoresProvider>
+          <App />
+        </ScoresProvider>
+      </TurnStateProvider>
     </GameStateProvider>
   </React.StrictMode>
 );
