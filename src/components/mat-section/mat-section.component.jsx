@@ -1,5 +1,4 @@
 const MatSection = (props) => {
-  console.log(props.id);
   return (
     <div className={`mat mat${props.id}`}>
       <img

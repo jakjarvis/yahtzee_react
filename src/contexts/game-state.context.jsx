@@ -1,22 +1,22 @@
 import { createContext, useState } from "react";
 
 export const GameStateContext = createContext({
-  player1: "Player 1",
-  player2: "Player 2",
-  scores1: 1,
-  scores2: 2,
-  activePlayer: 1,
-  turnsRemaining: 26,
+  active_player: null,
+  player1_name: null,
+  player2_name: null,
+  scores1_id: null,
+  scores2_id: null,
+  turns_remaining: null,
 });
 
 export const GameStateProvider = ({ children }) => {
   const [gameState, setGameState] = useState({
-    player1: "Player 1",
-    player2: "Player 2",
-    scores1: 1,
-    scores2: 2,
-    activePlayer: 1,
-    turnsRemaining: 26,
+    active_player: null,
+    player1_name: null,
+    player2_name: null,
+    scores1_id: null,
+    scores2_id: null,
+    turns_remaining: null,
   });
   const value = { gameState, setGameState };
 

@@ -10,25 +10,24 @@ export const ScoresContext = createContext({
   sixes: [null, null],
 
   /* Bottom score fields */
-  kind3: [null, null],
-  kind4: [null, null],
-  house: [null, null],
-  short: [null, null],
-  long: [null, null],
+  three_kind: [null, null],
+  four_kind: [null, null],
+  full_house: [null, null],
+  short_straight: [null, null],
+  long_straight: [null, null],
   yahtzee: [null, null],
   chance: [null, null],
 
   /* Total score fields */
-  topInitial: [null, null],
-  topBonus: [null, null],
-  topTotal: [null, null],
-  topTotalRepeat: [null, null],
-  bottomTotal: [null, null],
-  grandTotal: [null, null],
+  top_score: [null, null],
+  bonus: [null, null],
+  top_total: [null, null],
+  bottom_total: [null, null],
+  grand_total: [null, null],
 });
 
 export const ScoresProvider = ({ children }) => {
-  const [scoreState, setScoreState] = useState({
+  const [scoresState, setScoresState] = useState({
     /* Top score fields */
     ones: [null, null],
     twos: [null, null],
@@ -38,23 +37,22 @@ export const ScoresProvider = ({ children }) => {
     sixes: [null, null],
 
     /* Bottom score fields */
-    kind3: [null, null],
-    kind4: [null, null],
-    house: [null, null],
-    short: [null, null],
-    long: [null, null],
+    three_kind: [null, null],
+    four_kind: [null, null],
+    full_house: [null, null],
+    short_straight: [null, null],
+    long_straight: [null, null],
     yahtzee: [null, null],
     chance: [null, null],
 
     /* Total score fields */
-    topInitial: [null, null],
-    topBonus: [null, null],
-    topTotal: [null, null],
-    topTotalRepeat: [null, null],
-    bottomTotal: [null, null],
-    grandTotal: [null, null],
+    top_score: [null, null],
+    bonus: [null, null],
+    top_total: [null, null],
+    bottom_total: [null, null],
+    grand_total: [null, null],
   });
-  const value = { scoreState, setScoreState };
+  const value = { scoresState, setScoresState };
 
   return (
     <ScoresContext.Provider value={value}>{children}</ScoresContext.Provider>
