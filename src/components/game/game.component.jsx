@@ -32,7 +32,6 @@ async function fetch_game_state(setGameState, setScoresState, game_id) {
       return stateObject;
     })
     .then((state) => {
-      console.log("Game state is: ", state);
       setGameState(state);
     });
 
@@ -41,7 +40,6 @@ async function fetch_game_state(setGameState, setScoresState, game_id) {
   )
     .then((response) => response.json())
     .then((scores) => {
-      console.log(scores);
       update_scores_object(scores, 0);
     });
 
@@ -50,13 +48,10 @@ async function fetch_game_state(setGameState, setScoresState, game_id) {
   )
     .then((response) => response.json())
     .then((scores) => {
-      console.log(scores);
       update_scores_object(scores, 1);
-      console.log(scoresObject);
       return scoresObject;
     })
     .then((value) => {
-      console.log(value);
       setScoresState(value);
     });
 }

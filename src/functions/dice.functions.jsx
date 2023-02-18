@@ -26,6 +26,7 @@ export function rollDice(
   setTurnState,
   diceImages
 ) {
+  console.log("RollDice called");
   const [dice1, dice2, dice3, dice4, dice5, dice6] = diceImages;
   let { diceValues, heldDice, rollsLeft, numbers } = turnState;
   refresh_listeners(gameState, setGameState, turnState, setTurnState);
@@ -44,4 +45,28 @@ export function rollDice(
   numbers = numberArray(diceValues);
   setTurnState({ diceValues, heldDice, rollsLeft, numbers });
   highlight(gameState.active_player, turnState.numbers);
+
+  for (let i = 0; i < 5; i++) {
+    const diceEl = document.querySelector(`.dice${i}`);
+    diceEl.addEventListener("click", function () {
+      holdDie({ diceValues, heldDice, rollsLeft, numbers }, setTurnState, i);
+    });
+  }
+  return;
+}
+
+export function holdDie(turnState, setTurnState, diceNumber) {
+  let { diceValues, heldDice, rollsLeft, numbers } = turnState;
+  const diceEl = document.querySelector(`.dice${diceNumber}`);
+  console.log(rollsLeft, " rolls left");
+  console.log("Before", diceEl);
+  diceEl.classList.toggle("hold");
+  console.log("After", diceEl);
+  if (diceEl.classList.contains("hold")) {
+    heldDice[diceNumber] = diceValues[diceNumber];
+  } else {
+    heldDice[diceNumber] = 0;
+  }
+  setTurnState({ diceValues, heldDice, rollsLeft, numbers });
+  return;
 }

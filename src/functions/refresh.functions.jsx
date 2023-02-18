@@ -90,16 +90,16 @@ function reset_dice(
     }
   }
 
-  setGameState(
+  setGameState({
     active_player,
     player1_name,
     player2_name,
     scores1_id,
     scores2_id,
-    turns_remaining
-  );
+    turns_remaining,
+  });
 
-  setTurnState(diceValues, heldDice, rollsLeft, numbers);
+  setTurnState({ diceValues, heldDice, rollsLeft, numbers });
 }
 
 export function refresh_listeners(

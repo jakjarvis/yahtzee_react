@@ -32,20 +32,12 @@ export const update_scores_object = (scores, player) => {
   for (const score in scores) {
     scoresObject[score][player] = scores[score];
   }
-  console.log(scoresObject);
   return scoresObject;
 };
 
 const ScoreTable = () => {
   const { scoresState, setScoresState } = useContext(ScoresContext);
   const { gameState } = useContext(GameStateContext);
-
-  console.log(
-    "Render scoretable for scores ",
-    gameState.scores1_id,
-    " and ",
-    gameState.scores2_id
-  );
 
   const displayScore = (score) => {
     if (score != null) {

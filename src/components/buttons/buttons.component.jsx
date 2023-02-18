@@ -5,7 +5,7 @@ import { ScoresContext } from "../../contexts/scores.context";
 
 import { useContext } from "react";
 
-import { rollDice } from "../../functions/roll.functions";
+import { rollDice } from "../../functions/dice.functions";
 
 import dice1 from "../../assets/dice-1.png";
 import dice2 from "../../assets/dice-2.png";
@@ -22,6 +22,7 @@ const Buttons = () => {
   const { scoresState, setScoresState } = useContext(ScoresContext);
 
   const clickRoll = () => {
+    console.log(turnState.rollsLeft, " rolls left");
     if (turnState.rollsLeft > 0) {
       rollDice(gameState, setGameState, turnState, setTurnState, diceImages);
     }
@@ -31,6 +32,15 @@ const Buttons = () => {
     <div className="buttons">
       <Button type="button" buttonClass={"btn-roll"} onClick={clickRoll}>
         Roll
+      </Button>
+      <Button
+        type="button"
+        buttonClass={"btn-check"}
+        onClick={function () {
+          console.log(turnState);
+        }}
+      >
+        Check State
       </Button>
       <Button type="button" buttonClass={"btn-reset hidden"}>
         Play Again?

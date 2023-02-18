@@ -1,3 +1,5 @@
+import { holdDie } from "../../functions/dice.functions";
+
 const MatSection = (props) => {
   return (
     <div className={`mat mat${props.id}`}>
