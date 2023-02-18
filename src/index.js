@@ -6,17 +6,20 @@ import reportWebVitals from "./reportWebVitals";
 import { GameStateProvider } from "./contexts/game-state.context";
 import { ScoresProvider } from "./contexts/scores.context";
 import { TurnStateProvider } from "./contexts/turn-state.context";
+import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <GameStateProvider>
-      <TurnStateProvider>
-        <ScoresProvider>
-          <App />
-        </ScoresProvider>
-      </TurnStateProvider>
-    </GameStateProvider>
+    <BrowserRouter>
+      <GameStateProvider>
+        <TurnStateProvider>
+          <ScoresProvider>
+            <App />
+          </ScoresProvider>
+        </TurnStateProvider>
+      </GameStateProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
