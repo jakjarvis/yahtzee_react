@@ -36,33 +36,6 @@ export const update_scores_object = (scores, player) => {
   return scoresObject;
 };
 
-// export async function fetch_scores(gameState, scoresState, setScoresState) {
-//   await fetch(
-//     `http://127.0.0.1:8000/yahtzee/api/scores/${Number(gameState.scores1_id)}`
-//   )
-//     .then((response) => {
-//       update_scores_object(response, 0);
-//     })
-//     .catch((error) => console.log("Error"));
-
-//   await fetch(
-//     `http://127.0.0.1:8000/yahtzee/api/scores/${Number(gameState.scores2_id)}`
-//   )
-//     .then((response) => {
-//       update_scores_object(response, 1);
-//     })
-//     .then((value) => {
-//       console.log("Scores object is now: ", value);
-//       setScoresState(value);
-//     })
-//     .then((value) => {
-//       console.log("Scores state is now: ", scoresState);
-//     })
-//     .catch((error) => console.log("Error"));
-
-//   return;
-// }
-
 const ScoreTable = () => {
   const { scoresState, setScoresState } = useContext(ScoresContext);
   const { gameState } = useContext(GameStateContext);
@@ -73,12 +46,6 @@ const ScoreTable = () => {
     " and ",
     gameState.scores2_id
   );
-
-  // Issue: The fetch in App.js has not resolved in time, so the gameState is not always up to date when it is used
-
-  // useEffect(() => {
-  //   fetch_scores(gameState, scoresState, setScoresState);
-  // }, []);
 
   const displayScore = (score) => {
     if (score != null) {

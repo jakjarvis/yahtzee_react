@@ -114,13 +114,13 @@ resetBtn.addEventListener("click", function () {
 });
 
 /* Calculate dice values */
-function numberArray() {
-  let numbers = [0, 0, 0, 0, 0, 0];
-  for (let i = 0; i < 5; i++) {
-    numbers[diceValues[i] - 1] += 1;
-  }
-  return numbers;
-}
+// function numberArray() {
+//   let numbers = [0, 0, 0, 0, 0, 0];
+//   for (let i = 0; i < 5; i++) {
+//     numbers[diceValues[i] - 1] += 1;
+//   }
+//   return numbers;
+// }
 
 /* Define score highlighting */
 function highlightScore(legalFunction, scoreField) {
@@ -196,35 +196,35 @@ function reset_dice() {
 
 /* Roll dice */
 
-function randomiseDiceImage(diceElement) {
-  let randHeight = Math.trunc(Math.random() * 5);
-  let randWidth = Math.trunc(Math.random() * 5);
-  let randAngle = Math.trunc(Math.random() * 90);
+// function randomiseDiceImage(diceElement) {
+//   let randHeight = Math.trunc(Math.random() * 5);
+//   let randWidth = Math.trunc(Math.random() * 5);
+//   let randAngle = Math.trunc(Math.random() * 90);
 
-  diceElement.style.top = `${randHeight}vw`;
-  diceElement.style.left = `${randWidth}vw`;
-  diceElement.style.transform = `rotate(${randAngle}deg)`;
-}
+//   diceElement.style.top = `${randHeight}vw`;
+//   diceElement.style.left = `${randWidth}vw`;
+//   diceElement.style.transform = `rotate(${randAngle}deg)`;
+// }
 
-function rollDice() {
-  refresh_listeners();
-  for (let i = 0; i < 5; i++) {
-    if (heldDice[i] === 0) {
-      console.log(`Dice is ${i}`);
-      const result = Math.trunc(Math.random() * 6) + 1;
-      console.log(`Result is ${result}`);
-      diceValues[i] = result;
-      const diceElement = document.querySelector(`.dice${i}`);
-      randomiseDiceImage(diceElement);
-      diceElement.classList.remove("hidden");
-      diceElement.src = window[`dice${diceValues[i]}src`];
-    }
-  }
-  rollsLeft -= 1;
-  rollsCountEl.textContent = rollsLeft;
-  numbers = numberArray();
-  highlight();
-}
+// function rollDice() {
+//   refresh_listeners();
+//   for (let i = 0; i < 5; i++) {
+//     if (heldDice[i] === 0) {
+//       console.log(`Dice is ${i}`);
+//       const result = Math.trunc(Math.random() * 6) + 1;
+//       console.log(`Result is ${result}`);
+//       diceValues[i] = result;
+//       const diceElement = document.querySelector(`.dice${i}`);
+//       randomiseDiceImage(diceElement);
+//       diceElement.classList.remove("hidden");
+//       diceElement.src = window[`dice${diceValues[i]}src`];
+//     }
+//   }
+//   rollsLeft -= 1;
+//   rollsCountEl.textContent = rollsLeft;
+//   numbers = numberArray();
+//   highlight();
+// }
 
 // rollBtn.addEventListener("click", function () {
 //   console.log("Roll clicked");
