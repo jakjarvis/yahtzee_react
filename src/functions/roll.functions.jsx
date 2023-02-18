@@ -1,6 +1,5 @@
-const refresh_listeners = () => {
-  console.log("Add refresh listeners function");
-};
+import { highlight } from "./legality.functions";
+import { refresh_listeners } from "./refresh.functions";
 
 function randomiseDiceImage(diceElement) {
   let randHeight = Math.trunc(Math.random() * 5);
@@ -20,14 +19,16 @@ function numberArray(diceValues) {
   return numbers;
 }
 
-const highlight = () => {
-  console.log("Add highlight function");
-};
-
-export function rollDice(turnState, setTurnState, diceImages) {
+export function rollDice(
+  gameState,
+  setGameState,
+  turnState,
+  setTurnState,
+  diceImages
+) {
   const [dice1, dice2, dice3, dice4, dice5, dice6] = diceImages;
   let { diceValues, heldDice, rollsLeft, numbers } = turnState;
-  refresh_listeners();
+  refresh_listeners(gameState, setGameState, turnState, setTurnState);
   for (let i = 0; i < 5; i++) {
     if (heldDice[i] === 0) {
       const result = Math.trunc(Math.random() * 6) + 1;
@@ -42,5 +43,5 @@ export function rollDice(turnState, setTurnState, diceImages) {
   document.querySelector(".rolls-remaining").textContent = rollsLeft;
   numbers = numberArray(diceValues);
   setTurnState({ diceValues, heldDice, rollsLeft, numbers });
-  highlight();
+  highlight(gameState.active_player, turnState.numbers);
 }

@@ -93,18 +93,18 @@ const player2 = {
 
 /* DEFINE VARIABLES */
 // Now in Game State context
-let diceValues = [1, 2, 3, 4, 5];
-let heldDice = [0, 0, 0, 0, 0];
-let rollsLeft = 3;
-let numbers = [0, 0, 0, 0, 0, 0];
-let activePlayer = eval(activePlayerRef);
+// let diceValues = [1, 2, 3, 4, 5];
+// let heldDice = [0, 0, 0, 0, 0];
+// let rollsLeft = 3;
+// let numbers = [0, 0, 0, 0, 0, 0];
+// let activePlayer = eval(activePlayerRef);
 
-var dice1src = "assets/dice-1.png";
-var dice2src = "assets/dice-2.png";
-var dice3src = "assets/dice-3.png";
-var dice4src = "assets/dice-4.png";
-var dice5src = "assets/dice-5.png";
-var dice6src = "assets/dice-6.png";
+// var dice1src = "assets/dice-1.png";
+// var dice2src = "assets/dice-2.png";
+// var dice3src = "assets/dice-3.png";
+// var dice4src = "assets/dice-4.png";
+// var dice5src = "assets/dice-5.png";
+// var dice6src = "assets/dice-6.png";
 
 /* DEFINE FUNCTIONS */
 
@@ -123,76 +123,76 @@ resetBtn.addEventListener("click", function () {
 // }
 
 /* Define score highlighting */
-function highlightScore(legalFunction, scoreField) {
-  if (legalFunction === true) {
-    scoreField.classList.add("legal");
-    scoreField.classList.remove("nullable");
-  } else if (scoreField.textContent === "") {
-    scoreField.classList.remove("legal");
-    scoreField.classList.add("nullable");
-  } else {
-    scoreField.classList.remove("legal");
-    scoreField.classList.remove("nullable");
-  }
-}
+// function highlightScore(legalFunction, scoreField) {
+//   if (legalFunction === true) {
+//     scoreField.classList.add("legal");
+//     scoreField.classList.remove("nullable");
+//   } else if (scoreField.textContent === "") {
+//     scoreField.classList.remove("legal");
+//     scoreField.classList.add("nullable");
+//   } else {
+//     scoreField.classList.remove("legal");
+//     scoreField.classList.remove("nullable");
+//   }
+// }
 
 /* Reset after selection */
-function reset_dice() {
-  turnsRemaining -= 1;
+// function reset_dice() {
+//   turnsRemaining -= 1;
 
-  for (let i = 0; i < 5; i++) {
-    const diceElement = document.querySelector(`.dice${i}`);
-    diceElement.classList.add("hidden");
-    diceElement.classList.remove("hold");
-    heldDice[i] = 0;
-  }
+//   for (let i = 0; i < 5; i++) {
+//     const diceElement = document.querySelector(`.dice${i}`);
+//     diceElement.classList.add("hidden");
+//     diceElement.classList.remove("hold");
+//     heldDice[i] = 0;
+//   }
 
-  let fieldArray = [
-    activePlayer.onesScore,
-    activePlayer.twosScore,
-    activePlayer.threesScore,
-    activePlayer.foursScore,
-    activePlayer.fivesScore,
-    activePlayer.sixesScore,
-    activePlayer.kind3Score,
-    activePlayer.kind4Score,
-    activePlayer.houseScore,
-    activePlayer.shortScore,
-    activePlayer.longScore,
-    activePlayer.yahtzeeScore,
-    activePlayer.chanceScore,
-  ];
+//   let fieldArray = [
+//     activePlayer.onesScore,
+//     activePlayer.twosScore,
+//     activePlayer.threesScore,
+//     activePlayer.foursScore,
+//     activePlayer.fivesScore,
+//     activePlayer.sixesScore,
+//     activePlayer.kind3Score,
+//     activePlayer.kind4Score,
+//     activePlayer.houseScore,
+//     activePlayer.shortScore,
+//     activePlayer.longScore,
+//     activePlayer.yahtzeeScore,
+//     activePlayer.chanceScore,
+//   ];
 
-  for (let i = 0; i < fieldArray.length; i++) {
-    fieldArray[i].classList.remove("legal");
-    fieldArray[i].classList.remove("nullable");
-    rollsCountEl.textContent = "";
-  }
+//   for (let i = 0; i < fieldArray.length; i++) {
+//     fieldArray[i].classList.remove("legal");
+//     fieldArray[i].classList.remove("nullable");
+//     rollsCountEl.textContent = "";
+//   }
 
-  if (turnsRemaining > 0) {
-    rollsLeft = 3;
-    rollsCountEl.textContent = rollsLeft;
-    numbers = [0, 0, 0, 0, 0, 0];
-  } else {
-    calculateScores(player1);
-    calculateScores(player2);
-    rollBtn.classList.add("hidden");
-    resetBtn.classList.remove("hidden");
-    if (
-      parseInt(player1.grandTotal.textContent) >
-      parseInt(player2.grandTotal.textContent)
-    ) {
-      document.querySelector(".rolls-text").textContent = "Player 1 wins!";
-    } else if (
-      parseInt(player2.grandTotal.textContent) >
-      parseInt(player1.grandTotal.textContent)
-    ) {
-      document.querySelector(".rolls-text").textContent = "Player 2 wins!";
-    } else {
-      document.querySelector(".rolls-text").textContent = "It's a tie!";
-    }
-  }
-}
+//   if (turnsRemaining > 0) {
+//     rollsLeft = 3;
+//     rollsCountEl.textContent = rollsLeft;
+//     numbers = [0, 0, 0, 0, 0, 0];
+//   } else {
+//     calculateScores(player1);
+//     calculateScores(player2);
+//     rollBtn.classList.add("hidden");
+//     resetBtn.classList.remove("hidden");
+//     if (
+//       parseInt(player1.grandTotal.textContent) >
+//       parseInt(player2.grandTotal.textContent)
+//     ) {
+//       document.querySelector(".rolls-text").textContent = "Player 1 wins!";
+//     } else if (
+//       parseInt(player2.grandTotal.textContent) >
+//       parseInt(player1.grandTotal.textContent)
+//     ) {
+//       document.querySelector(".rolls-text").textContent = "Player 2 wins!";
+//     } else {
+//       document.querySelector(".rolls-text").textContent = "It's a tie!";
+//     }
+//   }
+// }
 
 /* Roll dice */
 
@@ -261,139 +261,139 @@ dice4El.addEventListener("click", function () {
 });
 
 /* Define legality functions */
-function topSectionLegal(scoreField) {
-  if (scoreField.textContent === "") {
-    return true;
-  } else {
-    return false;
-  }
-}
+// function topSectionLegal(scoreField) {
+//   if (scoreField.textContent === "") {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
-function kindxLegal(scoreField, x) {
-  if (
-    (numbers.includes(x) || numbers.includes(4) || numbers.includes(5)) &&
-    scoreField.textContent === ""
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
+// function kindxLegal(scoreField, x) {
+//   if (
+//     (numbers.includes(x) || numbers.includes(4) || numbers.includes(5)) &&
+//     scoreField.textContent === ""
+//   ) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
-function fullHouseLegal(scoreField) {
-  if (
-    numbers.includes(2) &&
-    numbers.includes(3) &&
-    scoreField.textContent === ""
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
+// function fullHouseLegal(scoreField) {
+//   if (
+//     numbers.includes(2) &&
+//     numbers.includes(3) &&
+//     scoreField.textContent === ""
+//   ) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
-function shortStraightLegal(scoreField) {
-  if (
-    ((numbers[0] > 0 && numbers[1] > 0 && numbers[2] > 0 && numbers[3] > 0) ||
-      (numbers[1] > 0 && numbers[2] > 0 && numbers[3] > 0 && numbers[4] > 0) ||
-      (numbers[2] > 0 && numbers[3] > 0 && numbers[4] > 0 && numbers[5] > 0)) &&
-    scoreField.textContent === ""
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
+// function shortStraightLegal(scoreField) {
+//   if (
+//     ((numbers[0] > 0 && numbers[1] > 0 && numbers[2] > 0 && numbers[3] > 0) ||
+//       (numbers[1] > 0 && numbers[2] > 0 && numbers[3] > 0 && numbers[4] > 0) ||
+//       (numbers[2] > 0 && numbers[3] > 0 && numbers[4] > 0 && numbers[5] > 0)) &&
+//     scoreField.textContent === ""
+//   ) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
-function longStraightLegal(scoreField) {
-  if (
-    ((numbers[0] > 0 &&
-      numbers[1] > 0 &&
-      numbers[2] > 0 &&
-      numbers[3] > 0 &&
-      numbers[4] > 0) ||
-      (numbers[1] > 0 &&
-        numbers[2] > 0 &&
-        numbers[3] > 0 &&
-        numbers[4] > 0 &&
-        numbers[5] > 0)) &&
-    scoreField.textContent === ""
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
+// function longStraightLegal(scoreField) {
+//   if (
+//     ((numbers[0] > 0 &&
+//       numbers[1] > 0 &&
+//       numbers[2] > 0 &&
+//       numbers[3] > 0 &&
+//       numbers[4] > 0) ||
+//       (numbers[1] > 0 &&
+//         numbers[2] > 0 &&
+//         numbers[3] > 0 &&
+//         numbers[4] > 0 &&
+//         numbers[5] > 0)) &&
+//     scoreField.textContent === ""
+//   ) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
-function yahtzeeLegal(scoreField) {
-  if (numbers.includes(5) && scoreField.textContent === "") {
-    return true;
-  } else {
-    return false;
-  }
-}
+// function yahtzeeLegal(scoreField) {
+//   if (numbers.includes(5) && scoreField.textContent === "") {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
 /* Define the highlight function (highlight all legal fields)*/
 
-function highlight() {
-  /* Top Section */
-  /*highlightScore(topSectionLegal(onesScore), onesScore);*/
-  highlightScore(
-    topSectionLegal(activePlayer.onesScore),
-    activePlayer.onesScore
-  );
-  highlightScore(
-    topSectionLegal(activePlayer.twosScore),
-    activePlayer.twosScore
-  );
-  highlightScore(
-    topSectionLegal(activePlayer.threesScore),
-    activePlayer.threesScore
-  );
-  highlightScore(
-    topSectionLegal(activePlayer.foursScore),
-    activePlayer.foursScore
-  );
-  highlightScore(
-    topSectionLegal(activePlayer.fivesScore),
-    activePlayer.fivesScore
-  );
-  highlightScore(
-    topSectionLegal(activePlayer.sixesScore),
-    activePlayer.sixesScore
-  );
+// function highlight() {
+//   /* Top Section */
+//   /*highlightScore(topSectionLegal(onesScore), onesScore);*/
+//   highlightScore(
+//     topSectionLegal(activePlayer.onesScore),
+//     activePlayer.onesScore
+//   );
+//   highlightScore(
+//     topSectionLegal(activePlayer.twosScore),
+//     activePlayer.twosScore
+//   );
+//   highlightScore(
+//     topSectionLegal(activePlayer.threesScore),
+//     activePlayer.threesScore
+//   );
+//   highlightScore(
+//     topSectionLegal(activePlayer.foursScore),
+//     activePlayer.foursScore
+//   );
+//   highlightScore(
+//     topSectionLegal(activePlayer.fivesScore),
+//     activePlayer.fivesScore
+//   );
+//   highlightScore(
+//     topSectionLegal(activePlayer.sixesScore),
+//     activePlayer.sixesScore
+//   );
 
-  /* Bottom Section */
+//   /* Bottom Section */
 
-  highlightScore(
-    kindxLegal(activePlayer.kind3Score, 3),
-    activePlayer.kind3Score
-  );
-  highlightScore(
-    kindxLegal(activePlayer.kind4Score, 4),
-    activePlayer.kind4Score
-  );
-  highlightScore(
-    fullHouseLegal(activePlayer.houseScore),
-    activePlayer.houseScore
-  );
-  highlightScore(
-    shortStraightLegal(activePlayer.shortScore),
-    activePlayer.shortScore
-  );
-  highlightScore(
-    longStraightLegal(activePlayer.longScore),
-    activePlayer.longScore
-  );
-  highlightScore(
-    yahtzeeLegal(activePlayer.yahtzeeScore),
-    activePlayer.yahtzeeScore
-  );
-  highlightScore(
-    topSectionLegal(activePlayer.chanceScore),
-    activePlayer.chanceScore
-  );
-}
+//   highlightScore(
+//     kindxLegal(activePlayer.kind3Score, 3),
+//     activePlayer.kind3Score
+//   );
+//   highlightScore(
+//     kindxLegal(activePlayer.kind4Score, 4),
+//     activePlayer.kind4Score
+//   );
+//   highlightScore(
+//     fullHouseLegal(activePlayer.houseScore),
+//     activePlayer.houseScore
+//   );
+//   highlightScore(
+//     shortStraightLegal(activePlayer.shortScore),
+//     activePlayer.shortScore
+//   );
+//   highlightScore(
+//     longStraightLegal(activePlayer.longScore),
+//     activePlayer.longScore
+//   );
+//   highlightScore(
+//     yahtzeeLegal(activePlayer.yahtzeeScore),
+//     activePlayer.yahtzeeScore
+//   );
+//   highlightScore(
+//     topSectionLegal(activePlayer.chanceScore),
+//     activePlayer.chanceScore
+//   );
+// }
 
 /* Define score setting */
 
@@ -406,180 +406,180 @@ function switchPlayer() {
   }
 }
 
-function refresh_listeners() {
-  activePlayer.onesScore.addEventListener("click", function () {
-    if (topSectionLegal(activePlayer.onesScore)) {
-      let score = 0;
-      for (let i = 0; i < 5; i++) {
-        if (diceValues[i] === 1) {
-          score += 1;
-        }
-        activePlayer.onesScore.textContent = score;
-        updateForm("ones", activePlayer.scoresId, score);
-      }
-      reset_dice();
-    }
-  });
+// function refresh_listeners() {
+//   activePlayer.onesScore.addEventListener("click", function () {
+//     if (topSectionLegal(activePlayer.onesScore)) {
+//       let score = 0;
+//       for (let i = 0; i < 5; i++) {
+//         if (diceValues[i] === 1) {
+//           score += 1;
+//         }
+//         activePlayer.onesScore.textContent = score;
+//         updateForm("ones", activePlayer.scoresId, score);
+//       }
+//       reset_dice();
+//     }
+//   });
 
-  activePlayer.twosScore.addEventListener("click", function () {
-    if (topSectionLegal(activePlayer.twosScore)) {
-      let score = 0;
-      for (let i = 0; i < 5; i++) {
-        if (diceValues[i] === 2) {
-          score += 2;
-        }
-        activePlayer.twosScore.textContent = score;
-        updateForm("twos", activePlayer.scoresId, score);
-      }
-      reset_dice();
-    }
-  });
-  activePlayer.threesScore.addEventListener("click", function () {
-    if (topSectionLegal(activePlayer.threesScore)) {
-      let score = 0;
-      for (let i = 0; i < 5; i++) {
-        if (diceValues[i] === 3) {
-          score += 3;
-        }
-        activePlayer.threesScore.textContent = score;
-        updateForm("threes", activePlayer.scoresId, score);
-      }
-      reset_dice();
-    }
-  });
-  activePlayer.foursScore.addEventListener("click", function () {
-    if (topSectionLegal(activePlayer.foursScore)) {
-      let score = 0;
-      for (let i = 0; i < 5; i++) {
-        if (diceValues[i] === 4) {
-          score += 4;
-        }
-        activePlayer.foursScore.textContent = score;
-        updateForm("fours", activePlayer.scoresId, score);
-      }
-      reset_dice();
-    }
-  });
-  activePlayer.fivesScore.addEventListener("click", function () {
-    if (topSectionLegal(activePlayer.fivesScore)) {
-      let score = 0;
-      for (let i = 0; i < 5; i++) {
-        if (diceValues[i] === 5) {
-          score += 5;
-        }
-        activePlayer.fivesScore.textContent = score;
-        updateForm("fives", activePlayer.scoresId, score);
-      }
-      reset_dice();
-    }
-  });
-  activePlayer.sixesScore.addEventListener("click", function () {
-    if (topSectionLegal(activePlayer.sixesScore)) {
-      let score = 0;
-      for (let i = 0; i < 5; i++) {
-        if (diceValues[i] === 6) {
-          score += 6;
-        }
-        activePlayer.sixesScore.textContent = score;
-        updateForm("sixes", activePlayer.scoresId, score);
-      }
-      reset_dice();
-    }
-  });
+//   activePlayer.twosScore.addEventListener("click", function () {
+//     if (topSectionLegal(activePlayer.twosScore)) {
+//       let score = 0;
+//       for (let i = 0; i < 5; i++) {
+//         if (diceValues[i] === 2) {
+//           score += 2;
+//         }
+//         activePlayer.twosScore.textContent = score;
+//         updateForm("twos", activePlayer.scoresId, score);
+//       }
+//       reset_dice();
+//     }
+//   });
+//   activePlayer.threesScore.addEventListener("click", function () {
+//     if (topSectionLegal(activePlayer.threesScore)) {
+//       let score = 0;
+//       for (let i = 0; i < 5; i++) {
+//         if (diceValues[i] === 3) {
+//           score += 3;
+//         }
+//         activePlayer.threesScore.textContent = score;
+//         updateForm("threes", activePlayer.scoresId, score);
+//       }
+//       reset_dice();
+//     }
+//   });
+//   activePlayer.foursScore.addEventListener("click", function () {
+//     if (topSectionLegal(activePlayer.foursScore)) {
+//       let score = 0;
+//       for (let i = 0; i < 5; i++) {
+//         if (diceValues[i] === 4) {
+//           score += 4;
+//         }
+//         activePlayer.foursScore.textContent = score;
+//         updateForm("fours", activePlayer.scoresId, score);
+//       }
+//       reset_dice();
+//     }
+//   });
+//   activePlayer.fivesScore.addEventListener("click", function () {
+//     if (topSectionLegal(activePlayer.fivesScore)) {
+//       let score = 0;
+//       for (let i = 0; i < 5; i++) {
+//         if (diceValues[i] === 5) {
+//           score += 5;
+//         }
+//         activePlayer.fivesScore.textContent = score;
+//         updateForm("fives", activePlayer.scoresId, score);
+//       }
+//       reset_dice();
+//     }
+//   });
+//   activePlayer.sixesScore.addEventListener("click", function () {
+//     if (topSectionLegal(activePlayer.sixesScore)) {
+//       let score = 0;
+//       for (let i = 0; i < 5; i++) {
+//         if (diceValues[i] === 6) {
+//           score += 6;
+//         }
+//         activePlayer.sixesScore.textContent = score;
+//         updateForm("sixes", activePlayer.scoresId, score);
+//       }
+//       reset_dice();
+//     }
+//   });
 
-  /* Bottom Section */
-  activePlayer.kind3Score.addEventListener("click", function () {
-    if (kindxLegal(activePlayer.kind3Score, 3)) {
-      let score = 0;
-      for (let i = 0; i < 5; i++) {
-        score += diceValues[i];
-      }
-      activePlayer.kind3Score.textContent = score;
-      updateForm("three_kind", activePlayer.scoresId, score);
-      reset_dice();
-    } else if (activePlayer.kind3Score.textContent === "") {
-      activePlayer.kind3Score.textContent = 0;
-      updateForm("ones", activePlayer.scoresId, 0);
-      reset_dice();
-    }
-  });
+//   /* Bottom Section */
+//   activePlayer.kind3Score.addEventListener("click", function () {
+//     if (kindxLegal(activePlayer.kind3Score, 3)) {
+//       let score = 0;
+//       for (let i = 0; i < 5; i++) {
+//         score += diceValues[i];
+//       }
+//       activePlayer.kind3Score.textContent = score;
+//       updateForm("three_kind", activePlayer.scoresId, score);
+//       reset_dice();
+//     } else if (activePlayer.kind3Score.textContent === "") {
+//       activePlayer.kind3Score.textContent = 0;
+//       updateForm("ones", activePlayer.scoresId, 0);
+//       reset_dice();
+//     }
+//   });
 
-  activePlayer.kind4Score.addEventListener("click", function () {
-    if (kindxLegal(activePlayer.kind4Score, 4)) {
-      let score = 0;
-      for (let i = 0; i < 5; i++) {
-        score += diceValues[i];
-      }
-      activePlayer.kind4Score.textContent = score;
-      updateForm("four_kind", activePlayer.scoresId, score);
-      reset_dice();
-    } else if (activePlayer.kind4Score.textContent === "") {
-      activePlayer.kind4Score.textContent = 0;
-      updateForm("four_kind", activePlayer.scoresId, 0);
-      reset_dice();
-    }
-  });
+//   activePlayer.kind4Score.addEventListener("click", function () {
+//     if (kindxLegal(activePlayer.kind4Score, 4)) {
+//       let score = 0;
+//       for (let i = 0; i < 5; i++) {
+//         score += diceValues[i];
+//       }
+//       activePlayer.kind4Score.textContent = score;
+//       updateForm("four_kind", activePlayer.scoresId, score);
+//       reset_dice();
+//     } else if (activePlayer.kind4Score.textContent === "") {
+//       activePlayer.kind4Score.textContent = 0;
+//       updateForm("four_kind", activePlayer.scoresId, 0);
+//       reset_dice();
+//     }
+//   });
 
-  activePlayer.houseScore.addEventListener("click", function () {
-    if (fullHouseLegal(activePlayer.houseScore)) {
-      activePlayer.houseScore.textContent = 25;
-      updateForm("full_house", activePlayer.scoresId, 25);
-      reset_dice();
-    } else if (activePlayer.houseScore.textContent === "") {
-      activePlayer.houseScore.textContent = 0;
-      updateForm("full_house", activePlayer.scoresId, 0);
-      reset_dice();
-    }
-  });
+//   activePlayer.houseScore.addEventListener("click", function () {
+//     if (fullHouseLegal(activePlayer.houseScore)) {
+//       activePlayer.houseScore.textContent = 25;
+//       updateForm("full_house", activePlayer.scoresId, 25);
+//       reset_dice();
+//     } else if (activePlayer.houseScore.textContent === "") {
+//       activePlayer.houseScore.textContent = 0;
+//       updateForm("full_house", activePlayer.scoresId, 0);
+//       reset_dice();
+//     }
+//   });
 
-  activePlayer.shortScore.addEventListener("click", function () {
-    if (shortStraightLegal(activePlayer.shortScore)) {
-      activePlayer.shortScore.textContent = 30;
-      updateForm("short_straight", activePlayer.scoresId, 30);
-      reset_dice();
-    } else if (activePlayer.shortScore.textContent === "") {
-      activePlayer.shortScore.textContent = 0;
-      updateForm("short_straight", activePlayer.scoresId, 0);
-      reset_dice();
-    }
-  });
+//   activePlayer.shortScore.addEventListener("click", function () {
+//     if (shortStraightLegal(activePlayer.shortScore)) {
+//       activePlayer.shortScore.textContent = 30;
+//       updateForm("short_straight", activePlayer.scoresId, 30);
+//       reset_dice();
+//     } else if (activePlayer.shortScore.textContent === "") {
+//       activePlayer.shortScore.textContent = 0;
+//       updateForm("short_straight", activePlayer.scoresId, 0);
+//       reset_dice();
+//     }
+//   });
 
-  activePlayer.longScore.addEventListener("click", function () {
-    if (longStraightLegal(activePlayer.longScore)) {
-      activePlayer.longScore.textContent = 40;
-      updateForm("long_straight", activePlayer.scoresId, 40);
-      reset_dice();
-    } else if (activePlayer.longScore.textContent === "") {
-      activePlayer.longScore.textContent = 0;
-      updateForm("long_straight", activePlayer.scoresId, 0);
-      reset_dice();
-    }
-  });
+//   activePlayer.longScore.addEventListener("click", function () {
+//     if (longStraightLegal(activePlayer.longScore)) {
+//       activePlayer.longScore.textContent = 40;
+//       updateForm("long_straight", activePlayer.scoresId, 40);
+//       reset_dice();
+//     } else if (activePlayer.longScore.textContent === "") {
+//       activePlayer.longScore.textContent = 0;
+//       updateForm("long_straight", activePlayer.scoresId, 0);
+//       reset_dice();
+//     }
+//   });
 
-  activePlayer.yahtzeeScore.addEventListener("click", function () {
-    if (yahtzeeLegal(activePlayer.yahtzeeScore)) {
-      activePlayer.yahtzeeScore.textContent = 50;
-      updateForm("yahtzee", activePlayer.scoresId, 50);
-      reset_dice();
-    } else if (activePlayer.yahtzeeScore.textContent === "") {
-      activePlayer.yahtzeeScore.textContent = 0;
-      updateForm("yahtzee", activePlayer.scoresId, 0);
-      reset_dice();
-    }
-  });
+//   activePlayer.yahtzeeScore.addEventListener("click", function () {
+//     if (yahtzeeLegal(activePlayer.yahtzeeScore)) {
+//       activePlayer.yahtzeeScore.textContent = 50;
+//       updateForm("yahtzee", activePlayer.scoresId, 50);
+//       reset_dice();
+//     } else if (activePlayer.yahtzeeScore.textContent === "") {
+//       activePlayer.yahtzeeScore.textContent = 0;
+//       updateForm("yahtzee", activePlayer.scoresId, 0);
+//       reset_dice();
+//     }
+//   });
 
-  activePlayer.chanceScore.addEventListener("click", function () {
-    if (topSectionLegal(activePlayer.chanceScore)) {
-      let score = 0;
-      for (let i = 0; i < 5; i++) {
-        score += diceValues[i];
-      }
-      activePlayer.chanceScore.textContent = score;
-      updateForm("chance", activePlayer.scoresId, score);
-      reset_dice();
-    }
-  });
-}
+//   activePlayer.chanceScore.addEventListener("click", function () {
+//     if (topSectionLegal(activePlayer.chanceScore)) {
+//       let score = 0;
+//       for (let i = 0; i < 5; i++) {
+//         score += diceValues[i];
+//       }
+//       activePlayer.chanceScore.textContent = score;
+//       updateForm("chance", activePlayer.scoresId, score);
+//       reset_dice();
+//     }
+//   });
+// }
 
 function calculateScores(player) {
   let topInitialScore = 0;
