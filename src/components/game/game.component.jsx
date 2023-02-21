@@ -76,28 +76,6 @@ const Game = () => {
         <div className="zone middle">
           <DiceMat dice="5" />
         </div>
-        <form method="post" id="submit_form">
-          <input type="text" id="field" name="field" className="hidden" />
-          <input
-            type="number"
-            id="scores_id"
-            name="scores_id"
-            className="hidden"
-          />
-          <input type="number" id="score" name="score" className="hidden" />
-          <input
-            type="text"
-            id="active_player"
-            name="active_player"
-            className="hidden"
-          />
-          <input
-            type="number"
-            id="turns_remaining"
-            name="turns_remaining"
-            className="hidden"
-          />
-        </form>
       </div>
       <script src="resources/script.js"></script>
     </div>

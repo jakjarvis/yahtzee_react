@@ -70,6 +70,11 @@ function reset_dice(
     rollsLeft = 3;
     rollsCountEl.textContent = rollsLeft;
     numbers = [0, 0, 0, 0, 0, 0];
+    if (active_player == "player1") {
+      active_player = "player2";
+    } else {
+      active_player = "player1";
+    }
   } else {
     calculateScores(player1);
     calculateScores(player2);
@@ -102,6 +107,28 @@ function reset_dice(
   setTurnState({ diceValues, heldDice, rollsLeft, numbers });
 }
 
+async function postscores(active_player, scores1_id, scores2_id, field, score) {
+  let scores_id;
+  if (active_player == "player1") {
+    scores_id = scores1_id;
+  } else {
+    scores_id = scores2_id;
+  }
+  let body = {};
+  body[field] = score;
+  console.log(`Putting ${body}`);
+  await fetch(`http://127.0.0.1:8000/yahtzee/api/scores/${scores_id}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  })
+    .then((response) => response.json())
+    .then((json) => console.log(json));
+}
+
 export function refresh_listeners(
   gameState,
   setGameState,
@@ -121,10 +148,6 @@ export function refresh_listeners(
 
   const activePlayerScores = activePlayerScoreFields(active_player);
 
-  const updateForm = () => {
-    console.log("Add for updating functions");
-  };
-
   activePlayerScores.onesScore.addEventListener("click", function () {
     if (topSectionLegal(activePlayerScores.onesScore)) {
       let score = 0;
@@ -132,9 +155,9 @@ export function refresh_listeners(
         if (diceValues[i] === 1) {
           score += 1;
         }
-        activePlayerScores.onesScore.textContent = score;
-        updateForm("ones", activePlayerScores.scoresId, score);
       }
+      activePlayerScores.onesScore.textContent = score;
+      postscores(active_player, scores1_id, scores2_id, "ones", score);
       reset_dice(
         gameState,
         setGameState,
@@ -152,9 +175,9 @@ export function refresh_listeners(
         if (diceValues[i] === 2) {
           score += 2;
         }
-        activePlayerScores.twosScore.textContent = score;
-        updateForm("twos", activePlayerScores.scoresId, score);
       }
+      activePlayerScores.twosScore.textContent = score;
+      postscores(active_player, scores1_id, scores2_id, "twos", score);
       reset_dice(
         gameState,
         setGameState,
@@ -171,9 +194,9 @@ export function refresh_listeners(
         if (diceValues[i] === 3) {
           score += 3;
         }
-        activePlayerScores.threesScore.textContent = score;
-        updateForm("threes", activePlayerScores.scoresId, score);
       }
+      activePlayerScores.threesScore.textContent = score;
+      postscores(active_player, scores1_id, scores2_id, "threes", score);
       reset_dice(
         gameState,
         setGameState,
@@ -190,9 +213,9 @@ export function refresh_listeners(
         if (diceValues[i] === 4) {
           score += 4;
         }
-        activePlayerScores.foursScore.textContent = score;
-        updateForm("fours", activePlayerScores.scoresId, score);
       }
+      activePlayerScores.foursScore.textContent = score;
+      postscores(active_player, scores1_id, scores2_id, "fours", score);
       reset_dice(
         gameState,
         setGameState,
@@ -209,9 +232,9 @@ export function refresh_listeners(
         if (diceValues[i] === 5) {
           score += 5;
         }
-        activePlayerScores.fivesScore.textContent = score;
-        updateForm("fives", activePlayerScores.scoresId, score);
       }
+      activePlayerScores.fivesScore.textContent = score;
+      postscores(active_player, scores1_id, scores2_id, "fives", score);
       reset_dice(
         gameState,
         setGameState,
@@ -228,9 +251,9 @@ export function refresh_listeners(
         if (diceValues[i] === 6) {
           score += 6;
         }
-        activePlayerScores.sixesScore.textContent = score;
-        updateForm("sixes", activePlayerScores.scoresId, score);
       }
+      activePlayerScores.sixesScore.textContent = score;
+      postscores(active_player, scores1_id, scores2_id, "sixes", score);
       reset_dice(
         gameState,
         setGameState,
@@ -249,7 +272,7 @@ export function refresh_listeners(
         score += diceValues[i];
       }
       activePlayerScores.kind3Score.textContent = score;
-      updateForm("three_kind", activePlayerScores.scoresId, score);
+      postscores(active_player, scores1_id, scores2_id, "three_kind", score);
       reset_dice(
         gameState,
         setGameState,
@@ -259,7 +282,7 @@ export function refresh_listeners(
       );
     } else if (activePlayerScores.kind3Score.textContent === "") {
       activePlayerScores.kind3Score.textContent = 0;
-      updateForm("ones", activePlayerScores.scoresId, 0);
+      postscores(active_player, scores1_id, scores2_id, "three_kind", 0);
       reset_dice(
         gameState,
         setGameState,
@@ -277,7 +300,7 @@ export function refresh_listeners(
         score += diceValues[i];
       }
       activePlayerScores.kind4Score.textContent = score;
-      updateForm("four_kind", activePlayerScores.scoresId, score);
+      postscores(active_player, scores1_id, scores2_id, "four_kind", score);
       reset_dice(
         gameState,
         setGameState,
@@ -287,7 +310,7 @@ export function refresh_listeners(
       );
     } else if (activePlayerScores.kind4Score.textContent === "") {
       activePlayerScores.kind4Score.textContent = 0;
-      updateForm("four_kind", activePlayerScores.scoresId, 0);
+      postscores(active_player, scores1_id, scores2_id, "four_kind", 0);
       reset_dice(
         gameState,
         setGameState,
@@ -301,7 +324,7 @@ export function refresh_listeners(
   activePlayerScores.houseScore.addEventListener("click", function () {
     if (fullHouseLegal(activePlayerScores.houseScore)) {
       activePlayerScores.houseScore.textContent = 25;
-      updateForm("full_house", activePlayerScores.scoresId, 25);
+      postscores(active_player, scores1_id, scores2_id, "full_house", 25);
       reset_dice(
         gameState,
         setGameState,
@@ -311,7 +334,7 @@ export function refresh_listeners(
       );
     } else if (activePlayerScores.houseScore.textContent === "") {
       activePlayerScores.houseScore.textContent = 0;
-      updateForm("full_house", activePlayerScores.scoresId, 0);
+      postscores(active_player, scores1_id, scores2_id, "full_house", 0);
       reset_dice(
         gameState,
         setGameState,
@@ -325,7 +348,7 @@ export function refresh_listeners(
   activePlayerScores.shortScore.addEventListener("click", function () {
     if (shortStraightLegal(activePlayerScores.shortScore)) {
       activePlayerScores.shortScore.textContent = 30;
-      updateForm("short_straight", activePlayerScores.scoresId, 30);
+      postscores(active_player, scores1_id, scores2_id, "short_straight", 30);
       reset_dice(
         gameState,
         setGameState,
@@ -335,7 +358,7 @@ export function refresh_listeners(
       );
     } else if (activePlayerScores.shortScore.textContent === "") {
       activePlayerScores.shortScore.textContent = 0;
-      updateForm("short_straight", activePlayerScores.scoresId, 0);
+      postscores(active_player, scores1_id, scores2_id, "short_straight", 30);
       reset_dice(
         gameState,
         setGameState,
@@ -349,7 +372,7 @@ export function refresh_listeners(
   activePlayerScores.longScore.addEventListener("click", function () {
     if (longStraightLegal(activePlayerScores.longScore)) {
       activePlayerScores.longScore.textContent = 40;
-      updateForm("long_straight", activePlayerScores.scoresId, 40);
+      postscores(active_player, scores1_id, scores2_id, "long_straight", 40);
       reset_dice(
         gameState,
         setGameState,
@@ -359,7 +382,7 @@ export function refresh_listeners(
       );
     } else if (activePlayerScores.longScore.textContent === "") {
       activePlayerScores.longScore.textContent = 0;
-      updateForm("long_straight", activePlayerScores.scoresId, 0);
+      postscores(active_player, scores1_id, scores2_id, "long_straight", 40);
       reset_dice(
         gameState,
         setGameState,
@@ -373,7 +396,7 @@ export function refresh_listeners(
   activePlayerScores.yahtzeeScore.addEventListener("click", function () {
     if (yahtzeeLegal(activePlayerScores.yahtzeeScore)) {
       activePlayerScores.yahtzeeScore.textContent = 50;
-      updateForm("yahtzee", activePlayerScores.scoresId, 50);
+      postscores(active_player, scores1_id, scores2_id, "yahtzee", 50);
       reset_dice(
         gameState,
         setGameState,
@@ -383,7 +406,7 @@ export function refresh_listeners(
       );
     } else if (activePlayerScores.yahtzeeScore.textContent === "") {
       activePlayerScores.yahtzeeScore.textContent = 0;
-      updateForm("yahtzee", activePlayerScores.scoresId, 0);
+      postscores(active_player, scores1_id, scores2_id, "yahtzee", 50);
       reset_dice(
         gameState,
         setGameState,
@@ -401,7 +424,7 @@ export function refresh_listeners(
         score += diceValues[i];
       }
       activePlayerScores.chanceScore.textContent = score;
-      updateForm("chance", activePlayerScores.scoresId, score);
+      postscores(active_player, scores1_id, scores2_id, "chance", score);
       reset_dice(
         gameState,
         setGameState,
