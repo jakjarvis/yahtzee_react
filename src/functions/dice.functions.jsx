@@ -20,6 +20,7 @@ function numberArray(diceValues) {
 }
 
 export function rollDice(
+  game_id,
   gameState,
   setGameState,
   turnState,
@@ -27,9 +28,11 @@ export function rollDice(
   diceImages
 ) {
   console.log("RollDice called");
+  console.log("Stated turns remaining:", gameState.turns_remaining);
   const [dice1, dice2, dice3, dice4, dice5, dice6] = diceImages;
   let { diceValues, heldDice, rollsLeft, numbers } = turnState;
-  refresh_listeners(gameState, setGameState, turnState, setTurnState);
+  rollsLeft -= 1;
+  document.querySelector(".rolls-remaining").textContent = rollsLeft;
   for (let i = 0; i < 5; i++) {
     if (heldDice[i] === 0) {
       const result = Math.trunc(Math.random() * 6) + 1;
@@ -40,11 +43,9 @@ export function rollDice(
       diceElement.src = eval(`dice${diceValues[i]}`);
     }
   }
-  rollsLeft -= 1;
-  document.querySelector(".rolls-remaining").textContent = rollsLeft;
   numbers = numberArray(diceValues);
   setTurnState({ diceValues, heldDice, rollsLeft, numbers });
-  highlight(gameState.active_player, turnState.numbers);
+  highlight(gameState.active_player, numbers);
 
   for (let i = 0; i < 5; i++) {
     const diceEl = document.querySelector(`.dice${i}`);

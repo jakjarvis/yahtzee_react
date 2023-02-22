@@ -1,0 +1,7 @@
+To do:
+
+- Add remaining functions in table.functions and migrate them to score-table.component.jsx
+
+Known bugs:
+
+- Currently highlighting on some bottom sections doesn't work (e.g. 3 kind, 4 kind)

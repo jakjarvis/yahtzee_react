@@ -58,9 +58,10 @@ async function fetch_game_state(setGameState, setScoresState, game_id) {
 
 const Game = () => {
   const { id } = useParams();
-  console.log("Game is: ", id);
   const { gameState, setGameState } = useContext(GameStateContext);
   const { setScoresState } = useContext(ScoresContext);
+  console.log("Game is: ", id);
+  console.log("Active player is: ", gameState.active_player);
 
   useEffect(() => {
     fetch_game_state(setGameState, setScoresState, id);

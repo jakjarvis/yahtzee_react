@@ -4,6 +4,7 @@ import { GameStateContext } from "../../contexts/game-state.context";
 import { ScoresContext } from "../../contexts/scores.context";
 
 import { useContext } from "react";
+import { useParams } from "react-router-dom";
 
 import { rollDice } from "../../functions/dice.functions";
 
@@ -17,6 +18,7 @@ import dice6 from "../../assets/dice-6.png";
 const diceImages = [dice1, dice2, dice3, dice4, dice5, dice6];
 
 const Buttons = () => {
+  const { id } = useParams();
   const { turnState, setTurnState } = useContext(TurnStateContext);
   const { gameState, setGameState } = useContext(GameStateContext);
   const { scoresState, setScoresState } = useContext(ScoresContext);
@@ -24,7 +26,14 @@ const Buttons = () => {
   const clickRoll = () => {
     console.log(turnState.rollsLeft, " rolls left");
     if (turnState.rollsLeft > 0) {
-      rollDice(gameState, setGameState, turnState, setTurnState, diceImages);
+      rollDice(
+        id,
+        gameState,
+        setGameState,
+        turnState,
+        setTurnState,
+        diceImages
+      );
     }
   };
 
