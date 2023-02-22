@@ -233,32 +233,32 @@ resetBtn.addEventListener("click", function () {
 //   }
 // });
 
-/* Hold dice */
-function holdDie(diceXEl, diceNumber) {
-  diceXEl.classList.toggle("hold");
-  if (diceXEl.classList.contains("hold")) {
-    heldDice[diceNumber] = diceValues[diceNumber];
-  } else {
-    heldDice[diceNumber] = 0;
-  }
-  console.log(`Held dice are ${heldDice}`);
-}
+// /* Hold dice */
+// function holdDie(diceXEl, diceNumber) {
+//   diceXEl.classList.toggle("hold");
+//   if (diceXEl.classList.contains("hold")) {
+//     heldDice[diceNumber] = diceValues[diceNumber];
+//   } else {
+//     heldDice[diceNumber] = 0;
+//   }
+//   console.log(`Held dice are ${heldDice}`);
+// }
 
-dice0El.addEventListener("click", function () {
-  holdDie(dice0El, 0);
-});
-dice1El.addEventListener("click", function () {
-  holdDie(dice1El, 1);
-});
-dice2El.addEventListener("click", function () {
-  holdDie(dice2El, 2);
-});
-dice3El.addEventListener("click", function () {
-  holdDie(dice3El, 3);
-});
-dice4El.addEventListener("click", function () {
-  holdDie(dice4El, 4);
-});
+// dice0El.addEventListener("click", function () {
+//   holdDie(dice0El, 0);
+// });
+// dice1El.addEventListener("click", function () {
+//   holdDie(dice1El, 1);
+// });
+// dice2El.addEventListener("click", function () {
+//   holdDie(dice2El, 2);
+// });
+// dice3El.addEventListener("click", function () {
+//   holdDie(dice3El, 3);
+// });
+// dice4El.addEventListener("click", function () {
+//   holdDie(dice4El, 4);
+// });
 
 /* Define legality functions */
 // function topSectionLegal(scoreField) {

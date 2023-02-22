@@ -14,6 +14,7 @@ import {
   scoreYahtzee,
   scoreChance,
 } from "../../functions/table.functions";
+import { highlightActivePlayer } from "../../functions/refresh.functions";
 
 export var scoresObject = {
   /* Top score fields */
@@ -63,6 +64,8 @@ const ScoreTable = () => {
       return "";
     }
   };
+
+  highlightActivePlayer(gameState);
 
   let activePlayerRef = gameState.active_player.charAt(
     gameState.active_player.length - 1

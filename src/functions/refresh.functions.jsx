@@ -158,3 +158,13 @@ export function postScores(
     .then((response) => response.json())
     .then((json) => console.log(json));
 }
+
+export function highlightActivePlayer(gameState) {
+  if (gameState.active_player == "player1") {
+    document.querySelector(".player1_name").classList.add("active");
+    document.querySelector(".player2_name").classList.remove("active");
+  } else {
+    document.querySelector(".player1_name").classList.remove("active");
+    document.querySelector(".player2_name").classList.add("active");
+  }
+}
