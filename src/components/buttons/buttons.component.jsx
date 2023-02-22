@@ -37,18 +37,16 @@ const Buttons = () => {
     }
   };
 
+  const clickCheckState = () => {
+    console.log(scoresState);
+  };
+
   return (
     <div className="buttons">
       <Button type="button" buttonClass={"btn-roll"} onClick={clickRoll}>
         Roll
       </Button>
-      <Button
-        type="button"
-        buttonClass={"btn-check"}
-        onClick={function () {
-          console.log(turnState);
-        }}
-      >
+      <Button type="button" buttonClass={"btn-check"} onClick={clickCheckState}>
         Check State
       </Button>
       <Button type="button" buttonClass={"btn-reset hidden"}>

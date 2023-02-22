@@ -581,42 +581,42 @@ function switchPlayer() {
 //   });
 // }
 
-function calculateScores(player) {
-  let topInitialScore = 0;
-  let bonusScore = 0;
-  let topTotalScore = 0;
-  let bottomScore = 0;
-  let grandTotalScore = 0;
+// function calculateScores(player) {
+//   let topInitialScore = 0;
+//   let bonusScore = 0;
+//   let topTotalScore = 0;
+//   let bottomScore = 0;
+//   let grandTotalScore = 0;
 
-  topInitialScore += parseInt(player.onesScore.textContent);
-  topInitialScore += parseInt(player.twosScore.textContent);
-  topInitialScore += parseInt(player.threesScore.textContent);
-  topInitialScore += parseInt(player.foursScore.textContent);
-  topInitialScore += parseInt(player.fivesScore.textContent);
-  topInitialScore += parseInt(player.sixesScore.textContent);
+//   topInitialScore += parseInt(player.onesScore.textContent);
+//   topInitialScore += parseInt(player.twosScore.textContent);
+//   topInitialScore += parseInt(player.threesScore.textContent);
+//   topInitialScore += parseInt(player.foursScore.textContent);
+//   topInitialScore += parseInt(player.fivesScore.textContent);
+//   topInitialScore += parseInt(player.sixesScore.textContent);
 
-  if (topInitialScore >= 63) {
-    bonusScore = 35;
-  }
+//   if (topInitialScore >= 63) {
+//     bonusScore = 35;
+//   }
 
-  topTotalScore = topInitialScore + bonusScore;
+//   topTotalScore = topInitialScore + bonusScore;
 
-  bottomScore += parseInt(player.kind3Score.textContent);
-  bottomScore += parseInt(player.kind4Score.textContent);
-  bottomScore += parseInt(player.houseScore.textContent);
-  bottomScore += parseInt(player.shortScore.textContent);
-  bottomScore += parseInt(player.longScore.textContent);
-  bottomScore += parseInt(player.yahtzeeScore.textContent);
-  bottomScore += parseInt(player.chanceScore.textContent);
+//   bottomScore += parseInt(player.kind3Score.textContent);
+//   bottomScore += parseInt(player.kind4Score.textContent);
+//   bottomScore += parseInt(player.houseScore.textContent);
+//   bottomScore += parseInt(player.shortScore.textContent);
+//   bottomScore += parseInt(player.longScore.textContent);
+//   bottomScore += parseInt(player.yahtzeeScore.textContent);
+//   bottomScore += parseInt(player.chanceScore.textContent);
 
-  grandTotalScore = topTotalScore + bonusScore + bottomScore;
+//   grandTotalScore = topTotalScore + bonusScore + bottomScore;
 
-  player.topInitial.textContent = topInitialScore;
-  player.topBonus.textContent = bonusScore;
-  player.topTotal.textContent = topTotalScore;
-  player.bottomTotal.textContent = bottomScore;
-  player.grandTotal.textContent = grandTotalScore;
-}
+//   player.topInitial.textContent = topInitialScore;
+//   player.topBonus.textContent = bonusScore;
+//   player.topTotal.textContent = topTotalScore;
+//   player.bottomTotal.textContent = bottomScore;
+//   player.grandTotal.textContent = grandTotalScore;
+// }
 
 // const displayScores1 = () => {
 //   /* Top score fields */

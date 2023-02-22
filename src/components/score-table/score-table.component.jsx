@@ -14,7 +14,10 @@ import {
   scoreYahtzee,
   scoreChance,
 } from "../../functions/table.functions";
-import { highlightActivePlayer } from "../../functions/refresh.functions";
+import {
+  highlightActivePlayer,
+  calculateScores,
+} from "../../functions/refresh.functions";
 
 export var scoresObject = {
   /* Top score fields */
@@ -64,8 +67,9 @@ const ScoreTable = () => {
       return "";
     }
   };
-
-  highlightActivePlayer(gameState);
+  try {
+    highlightActivePlayer(gameState);
+  } catch {}
 
   let activePlayerRef = gameState.active_player.charAt(
     gameState.active_player.length - 1
@@ -77,6 +81,8 @@ const ScoreTable = () => {
     setGameState,
     turnState,
     setTurnState,
+    scoresState,
+    setScoresState,
     activePlayerScores,
   ];
 
@@ -131,7 +137,7 @@ const ScoreTable = () => {
   const click3Kind = () => {
     scoreXKind(
       ...input,
-      document.querySelector(`.kind3P${activePlayerRef}`),
+      document.querySelector(`.kind_3P${activePlayerRef}`),
       "three_kind",
       3
     );
@@ -139,7 +145,7 @@ const ScoreTable = () => {
   const click4Kind = () => {
     scoreXKind(
       ...input,
-      document.querySelector(`.kind4P${activePlayerRef}`),
+      document.querySelector(`.kind_4P${activePlayerRef}`),
       "four_kind",
       4
     );
@@ -179,6 +185,28 @@ const ScoreTable = () => {
       "chance"
     );
   };
+
+  useEffect(() => {
+    if (gameState.turns_remaining == 0) {
+      calculateScores(...input);
+      // calculateScores(...input, 2);
+      document.querySelector(".btn-roll").classList.add("hidden");
+      document.querySelector(".btn-reset").classList.remove("hidden");
+      if (
+        parseInt(scoresState.grand_total[0]) >
+        parseInt(scoresState.grand_total[1])
+      ) {
+        document.querySelector(".rolls-text").textContent = "Player 1 wins!";
+      } else if (
+        parseInt(scoresState.grand_total[1]) >
+        parseInt(scoresState.grand_total[0])
+      ) {
+        document.querySelector(".rolls-text").textContent = "Player 2 wins!";
+      } else {
+        document.querySelector(".rolls-text").textContent = "It's a tie!";
+      }
+    }
+  }, [gameState.turns_remaining]);
 
   return (
     <table className="score_card">

@@ -9,12 +9,20 @@ import {
 import { postScores } from "./refresh.functions";
 import { reset_dice } from "./refresh.functions";
 
+const bodyGenerator = (postField, score) => {
+  let body = {};
+  body[postField] = score;
+  return body;
+};
+
 export function scoreNumber(
   game_id,
   gameState,
   setGameState,
   turnState,
   setTurnState,
+  scoresState,
+  setScoresState,
   activePlayerScores,
   field,
   postField,
@@ -38,18 +46,19 @@ export function scoreNumber(
         }
       }
       field.textContent = score;
-      postScores(active_player, scores1_id, scores2_id, postField, score);
-      console.log("Stated turns remaining:", gameState.turns_remaining);
-      reset_dice(
+      console.log("Posting:", bodyGenerator(postField, score));
+      postScores(
         game_id,
         gameState,
         setGameState,
         turnState,
         setTurnState,
-        activePlayerScores
+        scoresState,
+        setScoresState,
+        activePlayerScores,
+        bodyGenerator(postField, score)
       );
     }
-    console.log("Ones Score function run on", active_player);
   } catch (error) {
     console.log(error);
   }
@@ -61,6 +70,8 @@ export function scoreXKind(
   setGameState,
   turnState,
   setTurnState,
+  scoresState,
+  setScoresState,
   activePlayerScores,
   field,
   postField,
@@ -74,6 +85,7 @@ export function scoreXKind(
     scores2_id,
     turns_remaining,
   } = gameState;
+  console.log("field is:", field);
   try {
     if (kindxLegal(field, numeric, turnState.numbers)) {
       let score = 0;
@@ -81,25 +93,29 @@ export function scoreXKind(
         score += turnState.diceValues[i];
       }
       field.textContent = score;
-      postScores(active_player, scores1_id, scores2_id, postField, score);
-      reset_dice(
+      postScores(
         game_id,
         gameState,
         setGameState,
         turnState,
         setTurnState,
-        activePlayerScores
+        scoresState,
+        setScoresState,
+        activePlayerScores,
+        bodyGenerator(postField, score)
       );
     } else if (field.textContent === "") {
       field.textContent = 0;
-      postScores(active_player, scores1_id, scores2_id, postField, 0);
-      reset_dice(
+      postScores(
         game_id,
         gameState,
         setGameState,
         turnState,
         setTurnState,
-        activePlayerScores
+        scoresState,
+        setScoresState,
+        activePlayerScores,
+        bodyGenerator(postField, 0)
       );
     }
   } catch (error) {
@@ -113,6 +129,8 @@ export function scoreFullHouse(
   setGameState,
   turnState,
   setTurnState,
+  scoresState,
+  setScoresState,
   activePlayerScores,
   field,
   postField
@@ -128,25 +146,29 @@ export function scoreFullHouse(
   try {
     if (fullHouseLegal(field, turnState.numbers)) {
       field.textContent = 25;
-      postScores(active_player, scores1_id, scores2_id, postField, 25);
-      reset_dice(
+      postScores(
         game_id,
         gameState,
         setGameState,
         turnState,
         setTurnState,
-        activePlayerScores
+        scoresState,
+        setScoresState,
+        activePlayerScores,
+        bodyGenerator(postField, 25)
       );
     } else if (field.textContent === "") {
       field.textContent = 0;
-      postScores(active_player, scores1_id, scores2_id, postField, 0);
-      reset_dice(
+      postScores(
         game_id,
         gameState,
         setGameState,
         turnState,
         setTurnState,
-        activePlayerScores
+        scoresState,
+        setScoresState,
+        activePlayerScores,
+        bodyGenerator(postField, 0)
       );
     }
   } catch (error) {
@@ -160,6 +182,8 @@ export function scoreShortStraight(
   setGameState,
   turnState,
   setTurnState,
+  scoresState,
+  setScoresState,
   activePlayerScores,
   field,
   postField
@@ -175,25 +199,29 @@ export function scoreShortStraight(
   try {
     if (shortStraightLegal(field, turnState.numbers)) {
       field.textContent = 30;
-      postScores(active_player, scores1_id, scores2_id, postField, 30);
-      reset_dice(
+      postScores(
         game_id,
         gameState,
         setGameState,
         turnState,
         setTurnState,
-        activePlayerScores
+        scoresState,
+        setScoresState,
+        activePlayerScores,
+        bodyGenerator(postField, 30)
       );
     } else if (field.textContent === "") {
       field.textContent = 0;
-      postScores(active_player, scores1_id, scores2_id, postField, 0);
-      reset_dice(
+      postScores(
         game_id,
         gameState,
         setGameState,
         turnState,
         setTurnState,
-        activePlayerScores
+        scoresState,
+        setScoresState,
+        activePlayerScores,
+        bodyGenerator(postField, 0)
       );
     }
   } catch (error) {
@@ -207,6 +235,8 @@ export function scoreLongStraight(
   setGameState,
   turnState,
   setTurnState,
+  scoresState,
+  setScoresState,
   activePlayerScores,
   field,
   postField
@@ -222,25 +252,29 @@ export function scoreLongStraight(
   try {
     if (longStraightLegal(field, turnState.numbers)) {
       field.textContent = 40;
-      postScores(active_player, scores1_id, scores2_id, postField, 40);
-      reset_dice(
+      postScores(
         game_id,
         gameState,
         setGameState,
         turnState,
         setTurnState,
-        activePlayerScores
+        scoresState,
+        setScoresState,
+        activePlayerScores,
+        bodyGenerator(postField, 40)
       );
     } else if (field.textContent === "") {
       field.textContent = 0;
-      postScores(active_player, scores1_id, scores2_id, postField, 0);
-      reset_dice(
+      postScores(
         game_id,
         gameState,
         setGameState,
         turnState,
         setTurnState,
-        activePlayerScores
+        scoresState,
+        setScoresState,
+        activePlayerScores,
+        bodyGenerator(postField, 0)
       );
     }
   } catch (error) {
@@ -254,6 +288,8 @@ export function scoreYahtzee(
   setGameState,
   turnState,
   setTurnState,
+  scoresState,
+  setScoresState,
   activePlayerScores,
   field,
   postField
@@ -269,25 +305,29 @@ export function scoreYahtzee(
   try {
     if (yahtzeeLegal(field, turnState.numbers)) {
       field.textContent = 50;
-      postScores(active_player, scores1_id, scores2_id, postField, 50);
-      reset_dice(
+      postScores(
         game_id,
         gameState,
         setGameState,
         turnState,
         setTurnState,
-        activePlayerScores
+        scoresState,
+        setScoresState,
+        activePlayerScores,
+        bodyGenerator(postField, 50)
       );
     } else if (field.textContent === "") {
       field.textContent = 0;
-      postScores(active_player, scores1_id, scores2_id, postField, 50);
-      reset_dice(
+      postScores(
         game_id,
         gameState,
         setGameState,
         turnState,
         setTurnState,
-        activePlayerScores
+        scoresState,
+        setScoresState,
+        activePlayerScores,
+        bodyGenerator(postField, 0)
       );
     }
   } catch (error) {
@@ -295,12 +335,14 @@ export function scoreYahtzee(
   }
 }
 
-export function scoreChance(
+export async function scoreChance(
   game_id,
   gameState,
   setGameState,
   turnState,
   setTurnState,
+  scoresState,
+  setScoresState,
   activePlayerScores,
   field,
   postField
@@ -320,14 +362,16 @@ export function scoreChance(
         score += turnState.diceValues[i];
       }
       field.textContent = score;
-      postScores(active_player, scores1_id, scores2_id, postField, score);
-      reset_dice(
+      postScores(
         game_id,
         gameState,
         setGameState,
         turnState,
         setTurnState,
-        activePlayerScores
+        scoresState,
+        setScoresState,
+        activePlayerScores,
+        bodyGenerator(postField, score)
       );
     }
   } catch (error) {
