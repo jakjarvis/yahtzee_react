@@ -1,4 +1,4 @@
-body {
+/* body {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("../../assets/pexels-barnabas-davoti-11556304.jpg");
   background-size: cover;
@@ -6,7 +6,7 @@ body {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   text-align: center;
   font-family: "Luminari", sans-serif;
-}
+} */
 
 /* Board layout */
 .title_bar {

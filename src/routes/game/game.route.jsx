@@ -5,14 +5,13 @@ import { GameStateContext } from "../../contexts/game-state.context";
 import { ScoresContext } from "../../contexts/scores.context";
 import { useParams } from "react-router-dom";
 
-import ScoreTable from "../score-table/score-table.component";
-import TitleBar from "../title-bar/title-bar.component";
-import DiceMat from "../dice-mat/dice-mat.component";
+import ScoreTable from "../../components/score-table/score-table.component";
+import DiceMat from "../../components/dice-mat/dice-mat.component";
 
 import {
   update_scores_object,
   scoresObject,
-} from "../score-table/score-table.component";
+} from "../../components/score-table/score-table.component";
 
 async function fetch_game_state(setGameState, setScoresState, game_id) {
   let stateObject = {
@@ -69,7 +68,6 @@ const Game = () => {
 
   return (
     <div className="game">
-      <TitleBar />
       <div className="game_board">
         <div className="score_zone">
           <ScoreTable />
