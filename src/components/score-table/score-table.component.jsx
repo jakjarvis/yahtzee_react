@@ -1,11 +1,13 @@
-import { ScoresContext } from "../../contexts/scores.context";
-import { GameStateContext } from "../../contexts/game-state.context";
-import { TurnStateContext } from "../../contexts/turn-state.context";
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+import { ScoresContext } from "../../contexts/scores.context";
+import { GameStateContext } from "../../contexts/game-state.context";
+import { TurnStateContext } from "../../contexts/turn-state.context";
+
 import { activePlayerScoreFields } from "../../functions/legality.functions";
 import {
+  displayScore,
   scoreFullHouse,
   scoreNumber,
   scoreShortStraight,
@@ -19,76 +21,35 @@ import {
   calculateScores,
 } from "../../functions/refresh.functions";
 
-export var scoresObject = {
-  /* Top score fields */
-  ones: [null, null],
-  twos: [null, null],
-  threes: [null, null],
-  fours: [null, null],
-  fives: [null, null],
-  sixes: [null, null],
-
-  /* Bottom score fields */
-  three_kind: [null, null],
-  four_kind: [null, null],
-  full_house: [null, null],
-  short_straight: [null, null],
-  long_straight: [null, null],
-  yahtzee: [null, null],
-  chance: [null, null],
-
-  /* Total score fields */
-  top_score: [null, null],
-  bonus: [null, null],
-  top_total: [null, null],
-  bottom_total: [null, null],
-  grand_total: [null, null],
-};
-
-export const update_scores_object = (scores, player) => {
-  for (const score in scores) {
-    scoresObject[score][player] = scores[score];
-  }
-  return scoresObject;
-};
-
 const ScoreTable = () => {
+  const { id } = useParams();
   const { scoresState, setScoresState } = useContext(ScoresContext);
   const { gameState, setGameState } = useContext(GameStateContext);
   const { turnState, setTurnState } = useContext(TurnStateContext);
-
   const activePlayerScores = activePlayerScoreFields(gameState.active_player);
-  const { id } = useParams();
 
-  const displayScore = (score) => {
-    if (score != null) {
-      return score;
-    } else {
-      return "";
-    }
+  const context = {
+    game_id: id,
+    gameState: gameState,
+    setGameState: setGameState,
+    turnState: turnState,
+    setTurnState: setTurnState,
+    scoresState: scoresState,
+    setScoresState: setScoresState,
+    activePlayerScores: activePlayerScores,
   };
+
+  const activePlayerRef = gameState.active_player.charAt(
+    gameState.active_player.length - 1
+  );
+
   try {
     highlightActivePlayer(gameState);
   } catch {}
 
-  let activePlayerRef = gameState.active_player.charAt(
-    gameState.active_player.length - 1
-  );
-
-  let input = [
-    id,
-    gameState,
-    setGameState,
-    turnState,
-    setTurnState,
-    scoresState,
-    setScoresState,
-    activePlayerScores,
-  ];
-
   const clickOnes = () => {
     scoreNumber(
-      ...input,
+      context,
       document.querySelector(`.onesP${activePlayerRef}`),
       "ones",
       1
@@ -96,7 +57,7 @@ const ScoreTable = () => {
   };
   const clickTwos = () => {
     scoreNumber(
-      ...input,
+      context,
       document.querySelector(`.twosP${activePlayerRef}`),
       "twos",
       2
@@ -104,7 +65,7 @@ const ScoreTable = () => {
   };
   const clickThrees = () => {
     scoreNumber(
-      ...input,
+      context,
       document.querySelector(`.threesP${activePlayerRef}`),
       "threes",
       3
@@ -112,7 +73,7 @@ const ScoreTable = () => {
   };
   const clickFours = () => {
     scoreNumber(
-      ...input,
+      context,
       document.querySelector(`.foursP${activePlayerRef}`),
       "fours",
       4
@@ -120,7 +81,7 @@ const ScoreTable = () => {
   };
   const clickFives = () => {
     scoreNumber(
-      ...input,
+      context,
       document.querySelector(`.fivesP${activePlayerRef}`),
       "fives",
       5
@@ -128,7 +89,7 @@ const ScoreTable = () => {
   };
   const clickSixes = () => {
     scoreNumber(
-      ...input,
+      context,
       document.querySelector(`.sixesP${activePlayerRef}`),
       "sixes",
       6
@@ -136,7 +97,7 @@ const ScoreTable = () => {
   };
   const click3Kind = () => {
     scoreXKind(
-      ...input,
+      context,
       document.querySelector(`.kind_3P${activePlayerRef}`),
       "three_kind",
       3
@@ -144,7 +105,7 @@ const ScoreTable = () => {
   };
   const click4Kind = () => {
     scoreXKind(
-      ...input,
+      context,
       document.querySelector(`.kind_4P${activePlayerRef}`),
       "four_kind",
       4
@@ -152,35 +113,35 @@ const ScoreTable = () => {
   };
   const clickFullHouse = () => {
     scoreFullHouse(
-      ...input,
+      context,
       document.querySelector(`.full_houseP${activePlayerRef}`),
       "full_house"
     );
   };
   const clickShortStraight = () => {
     scoreShortStraight(
-      ...input,
+      context,
       document.querySelector(`.short_straightP${activePlayerRef}`),
       "short_straight"
     );
   };
   const clickLongStraight = () => {
     scoreLongStraight(
-      ...input,
+      context,
       document.querySelector(`.long_straightP${activePlayerRef}`),
       "long_straight"
     );
   };
   const clickYahtzee = () => {
     scoreYahtzee(
-      ...input,
+      context,
       document.querySelector(`.yahtzeeP${activePlayerRef}`),
       "yahtzee"
     );
   };
   const clickChance = () => {
     scoreChance(
-      ...input,
+      context,
       document.querySelector(`.chanceP${activePlayerRef}`),
       "chance"
     );
@@ -188,8 +149,7 @@ const ScoreTable = () => {
 
   useEffect(() => {
     if (gameState.turns_remaining == 0) {
-      calculateScores(...input);
-      // calculateScores(...input, 2);
+      calculateScores(context);
       document.querySelector(".btn-roll").classList.add("hidden");
       document.querySelector(".btn-reset").classList.remove("hidden");
       if (

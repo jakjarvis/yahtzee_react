@@ -16,7 +16,7 @@ import dice3 from "../../assets/dice-3.png";
 import dice4 from "../../assets/dice-4.png";
 import dice5 from "../../assets/dice-5.png";
 import dice6 from "../../assets/dice-6.png";
-import { fetch_game_state } from "../../routes/game/game.route";
+import { getGameState } from "../../functions/fetch.functions";
 
 const diceImages = [dice1, dice2, dice3, dice4, dice5, dice6];
 
@@ -42,22 +42,15 @@ const Buttons = () => {
     }
   };
 
-  const clickCheckState = () => {
-    console.log(scoresState);
-  };
-
   async function clickReplay() {
     await setupGame(navigate, gameState.player1_name, gameState.player2_name);
-    await fetch_game_state(setGameState, setScoresState, id);
+    await getGameState(setGameState, setScoresState, id);
   }
 
   return (
     <div className="buttons">
       <Button type="button" buttonClass={"btn-roll"} onClick={clickRoll}>
         Roll
-      </Button>
-      <Button type="button" buttonClass={"btn-check"} onClick={clickCheckState}>
-        Check State
       </Button>
       <Button type="button" buttonClass={"btn-replay"} onClick={clickReplay}>
         Play Again?

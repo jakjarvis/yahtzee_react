@@ -1,31 +1,7 @@
-function updateGameState(game_id, active_player, turns_remaining) {
-  let body = {
-    active_player: active_player,
-    turns_remaining: turns_remaining,
-  };
-  fetch(`http://127.0.0.1:8000/yahtzee/api/game/${game_id}`, {
-    method: "PUT",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  })
-    .then((response) => response.json())
-    .then((json) => console.log(json));
-}
+import { postGameState, postScores } from "../functions/fetch.functions";
 
-export function calculateScores(
-  game_id,
-  gameState,
-  setGameState,
-  turnState,
-  setTurnState,
-  scoresState,
-  setScoresState,
-  activePlayerScores
-) {
-  let scoresObject = scoresState;
+export function calculateScores(context) {
+  let scoresObject = context.scoresState;
   for (let playerId = 0; playerId < 2; playerId++) {
     let playerRef = playerId + 1;
 
@@ -51,8 +27,6 @@ export function calculateScores(
       bottom_total,
       grand_total,
     } = scoresObject;
-
-    console.log("Scores object start: ", scoresObject);
 
     top_score[playerId] += parseInt(ones[playerId]);
     top_score[playerId] += parseInt(twos[playerId]);
@@ -92,8 +66,6 @@ export function calculateScores(
       bottom_total[playerId];
     document.querySelector(`.grand_totalP${playerRef}`).textContent =
       grand_total;
-
-    console.log("Scores Object ends: ", scoresObject);
   }
 
   let player1scores = {};
@@ -104,40 +76,20 @@ export function calculateScores(
   for (const score in scoresObject) {
     player2scores[score] = scoresObject[score][1];
   }
-  postScores(
-    game_id,
-    gameState,
-    setGameState,
-    turnState,
-    setTurnState,
-    scoresState,
-    setScoresState,
-    activePlayerScores,
-    player1scores
-  );
-  postScores(
-    game_id,
-    gameState,
-    setGameState,
-    turnState,
-    setTurnState,
-    scoresState,
-    setScoresState,
-    activePlayerScores,
-    player2scores
-  );
+  postScores(context, player1scores);
+  postScores(context, player2scores);
 }
 
-export function reset_dice(
-  game_id,
-  gameState,
-  setGameState,
-  turnState,
-  setTurnState,
-  scoresState,
-  setScoresState,
-  activePlayerScores
-) {
+export function reset_dice(context) {
+  let {
+    game_id,
+    gameState,
+    setGameState,
+    turnState,
+    setTurnState,
+    activePlayerScores,
+  } = context;
+
   let {
     active_player,
     player1_name,
@@ -151,9 +103,7 @@ export function reset_dice(
 
   const rollsCountEl = document.querySelector(".rolls-remaining");
 
-  console.log("Stated turns remaining:", turns_remaining);
   turns_remaining -= 1;
-  console.log("Stated turns remaining:", turns_remaining);
 
   for (let i = 0; i < 5; i++) {
     const diceElement = document.querySelector(`.dice${i}`);
@@ -198,8 +148,7 @@ export function reset_dice(
   } else {
   }
 
-  updateGameState(game_id, active_player, turns_remaining);
-
+  postGameState(game_id, active_player, turns_remaining);
   setGameState({
     active_player,
     player1_name,
@@ -214,74 +163,55 @@ export function reset_dice(
   setTurnState({ diceValues, heldDice, rollsLeft, numbers });
 }
 
-export function postScores(
-  game_id,
-  gameState,
-  setGameState,
-  turnState,
-  setTurnState,
-  scoresState,
-  setScoresState,
-  activePlayerScores,
-  body
-) {
-  let scores_id, playerRef;
-  if (gameState.active_player == "player1") {
-    scores_id = gameState.scores1_id;
-    playerRef = 1;
-  } else {
-    scores_id = gameState.scores2_id;
-    playerRef = 2;
-  }
+// export function postScores(context, body) {
+//   let { gameState, scoresState, setScoresState } = context;
+//   let scores_id, playerRef;
+//   if (gameState.active_player == "player1") {
+//     scores_id = gameState.scores1_id;
+//     playerRef = 1;
+//   } else {
+//     scores_id = gameState.scores2_id;
+//     playerRef = 2;
+//   }
 
-  console.log(`Putting`, body);
-  fetch(`http://127.0.0.1:8000/yahtzee/api/scores/${scores_id}`, {
-    method: "PUT",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      if (playerRef == 1) {
-        let scoresObject = {};
-        for (const score in json) {
-          scoresObject[score] = [
-            eval(`json.${score}`),
-            eval(`scoresState.${score}`)[1],
-          ];
-        }
-        console.log("Scores to state: ", scoresObject);
-        setScoresState(scoresObject);
-      } else {
-        let scoresObject = {};
-        for (const score in json) {
-          scoresObject[score] = [
-            eval(`scoresState.${score}`)[0],
-            eval(`json.${score}`),
-          ];
-        }
-        console.log("Scores to state: ", scoresObject);
-        setScoresState(scoresObject);
-        return scoresObject;
-      }
-    })
-    .then((scoresObject) => {
-      console.log("reset");
-      reset_dice(
-        game_id,
-        gameState,
-        setGameState,
-        turnState,
-        setTurnState,
-        scoresObject,
-        setScoresState,
-        activePlayerScores
-      );
-    });
-}
+//   console.log(`Putting`, body);
+//   fetch(`http://127.0.0.1:8000/yahtzee/api/scores/${scores_id}`, {
+//     method: "PUT",
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(body),
+//   })
+//     .then((response) => response.json())
+//     .then((json) => {
+//       if (playerRef == 1) {
+//         let scoresObject = {};
+//         for (const score in json) {
+//           scoresObject[score] = [
+//             eval(`json.${score}`),
+//             eval(`scoresState.${score}`)[1],
+//           ];
+//         }
+//         console.log("Scores to state: ", scoresObject);
+//         setScoresState(scoresObject);
+//       } else {
+//         let scoresObject = {};
+//         for (const score in json) {
+//           scoresObject[score] = [
+//             eval(`scoresState.${score}`)[0],
+//             eval(`json.${score}`),
+//           ];
+//         }
+//         console.log("Scores to state: ", scoresObject);
+//         setScoresState(scoresObject);
+//         return scoresObject;
+//       }
+//     })
+//     .then(() => {
+//       reset_dice(context);
+//     });
+// }
 
 export function highlightActivePlayer(gameState) {
   if (gameState.active_player == "player1") {
