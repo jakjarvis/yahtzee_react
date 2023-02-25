@@ -46,12 +46,6 @@ export function rollDice(
   setTurnState({ diceValues, heldDice, rollsLeft, numbers });
   highlight(gameState.active_player, numbers);
 
-  for (let i = 0; i < 5; i++) {
-    const diceEl = document.querySelector(`.dice${i}`);
-    diceEl.addEventListener("click", function () {
-      holdDie({ diceValues, heldDice, rollsLeft, numbers }, setTurnState, i);
-    });
-  }
   return;
 }
 
