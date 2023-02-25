@@ -7,7 +7,6 @@ import {
   yahtzeeLegal,
 } from "./legality.functions";
 import { postScores } from "./refresh.functions";
-import { reset_dice } from "./refresh.functions";
 
 const bodyGenerator = (postField, score) => {
   let body = {};

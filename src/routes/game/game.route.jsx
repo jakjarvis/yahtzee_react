@@ -13,7 +13,7 @@ import {
   scoresObject,
 } from "../../components/score-table/score-table.component";
 
-async function fetch_game_state(setGameState, setScoresState, game_id) {
+export async function fetch_game_state(setGameState, setScoresState, game_id) {
   let stateObject = {
     active_player: null,
     player1_name: null,

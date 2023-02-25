@@ -1,17 +1,3 @@
-import { activePlayerScoreFields } from "./legality.functions";
-import {
-  topSectionLegal,
-  kindxLegal,
-  fullHouseLegal,
-  shortStraightLegal,
-  longStraightLegal,
-  yahtzeeLegal,
-} from "./legality.functions";
-
-//added player1 and plyer2 as strings until calculate scores is added
-let player1 = "player1";
-let player2 = "player2";
-
 function updateGameState(game_id, active_player, turns_remaining) {
   let body = {
     active_player: active_player,

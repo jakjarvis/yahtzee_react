@@ -1,5 +1,4 @@
 import { highlight } from "./legality.functions";
-import { refresh_listeners } from "./refresh.functions";
 
 function randomiseDiceImage(diceElement) {
   let randHeight = Math.trunc(Math.random() * 5);

@@ -17,33 +17,39 @@ function alertWindow(body, user_array) {
   }
 }
 
+export async function setupGame(navigate, player1Name, player2Name) {
+  let body = {
+    player1: player1Name,
+    player2: player2Name,
+  };
+
+  console.log("Players:", body);
+
+  await fetch("http://127.0.0.1:8000/yahtzee/api/setup", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(JSON.parse(json));
+      alertWindow(body, JSON.parse(json)["user_array"]);
+      navigate(`/game/${JSON.parse(json)["game_id"]}`);
+    });
+  return;
+}
+
 const Setup = () => {
   const navigate = useNavigate();
-
-  async function setupGame() {
+  const clickSetup = () => {
     const player1Name = document.getElementById("player1Name").value;
     const player2Name = document.getElementById("player2Name").value;
 
-    let body = {
-      player1: player1Name,
-      player2: player2Name,
-    };
-
-    await fetch("http://127.0.0.1:8000/yahtzee/api/setup", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(JSON.parse(json));
-        alertWindow(body, JSON.parse(json)["user_array"]);
-        navigate(`/game/${JSON.parse(json)["game_id"]}`);
-      });
-  }
+    setupGame(navigate, player1Name, player2Name);
+  };
 
   return (
     <div>
@@ -53,7 +59,7 @@ const Setup = () => {
         <input type="text" id="player1Name"></input>
         <h4>Player 2 Name</h4>
         <input type="text" id="player2Name"></input>
-        <Button type="button" buttonClass={"btn-play"} onClick={setupGame}>
+        <Button type="button" buttonClass={"btn-play"} onClick={clickSetup}>
           Play!
         </Button>
       </form>
