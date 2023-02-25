@@ -1,3 +1,8 @@
+// FUNCTIONS:
+// - topSectionLegal, kindxLegal, fullHouseLegal, shortStraightLegal, longStraightLegal, yahtzeeLegal
+// - activePlayerScoreFields
+// - highlight
+
 export function topSectionLegal(scoreField) {
   if (scoreField.textContent === "") {
     return true;
@@ -70,19 +75,6 @@ export function yahtzeeLegal(scoreField, numbers) {
   }
 }
 
-function highlightScore(legalFunction, scoreField) {
-  if (legalFunction === true) {
-    scoreField.classList.add("legal");
-    scoreField.classList.remove("nullable");
-  } else if (scoreField.textContent === "") {
-    scoreField.classList.remove("legal");
-    scoreField.classList.add("nullable");
-  } else {
-    scoreField.classList.remove("legal");
-    scoreField.classList.remove("nullable");
-  }
-}
-
 export function activePlayerScoreFields(activePlayer) {
   let activePlayerRef = activePlayer.charAt(activePlayer.length - 1);
   let activePlayerScores = {
@@ -111,6 +103,19 @@ export function activePlayerScoreFields(activePlayer) {
   };
   return activePlayerScores;
 }
+
+const highlightScore = (legalFunction, scoreField) => {
+  if (legalFunction === true) {
+    scoreField.classList.add("legal");
+    scoreField.classList.remove("nullable");
+  } else if (scoreField.textContent === "") {
+    scoreField.classList.remove("legal");
+    scoreField.classList.add("nullable");
+  } else {
+    scoreField.classList.remove("legal");
+    scoreField.classList.remove("nullable");
+  }
+};
 
 export function highlight(activePlayer, numbers) {
   console.log("Highlighting with numbers: ", numbers);

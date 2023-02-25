@@ -1,6 +1,10 @@
+// FUNCTIONS:
+// - rollDice
+// - holdDie
+
 import { highlight } from "./legality.functions";
 
-function randomiseDiceImage(diceElement) {
+const randomiseDiceImage = (diceElement) => {
   let randHeight = Math.trunc(Math.random() * 5);
   let randWidth = Math.trunc(Math.random() * 5);
   let randAngle = Math.trunc(Math.random() * 90);
@@ -8,15 +12,15 @@ function randomiseDiceImage(diceElement) {
   diceElement.style.top = `${randHeight}vw`;
   diceElement.style.left = `${randWidth}vw`;
   diceElement.style.transform = `rotate(${randAngle}deg)`;
-}
+};
 
-function numberArray(diceValues) {
+const numberArray = (diceValues) => {
   let numbers = [0, 0, 0, 0, 0, 0];
   for (let i = 0; i < 5; i++) {
     numbers[diceValues[i] - 1] += 1;
   }
   return numbers;
-}
+};
 
 export function rollDice(
   game_id,

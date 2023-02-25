@@ -1,3 +1,7 @@
+// FUNCTIONS:
+// - displayScore
+// - scoreNumber, scorexKind, scoreFullHouse, scoreShortStraight, scoreLongStraight, scoreYahtzee, scoreChance
+
 import {
   topSectionLegal,
   kindxLegal,

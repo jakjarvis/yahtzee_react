@@ -1,3 +1,8 @@
+// FUNCTIONS:
+// - calculateScores
+// - reset_dice
+// - highlightActivePlayer
+
 import { postGameState, postScores } from "../functions/fetch.functions";
 
 export function calculateScores(context) {
@@ -162,56 +167,6 @@ export function reset_dice(context) {
 
   setTurnState({ diceValues, heldDice, rollsLeft, numbers });
 }
-
-// export function postScores(context, body) {
-//   let { gameState, scoresState, setScoresState } = context;
-//   let scores_id, playerRef;
-//   if (gameState.active_player == "player1") {
-//     scores_id = gameState.scores1_id;
-//     playerRef = 1;
-//   } else {
-//     scores_id = gameState.scores2_id;
-//     playerRef = 2;
-//   }
-
-//   console.log(`Putting`, body);
-//   fetch(`http://127.0.0.1:8000/yahtzee/api/scores/${scores_id}`, {
-//     method: "PUT",
-//     headers: {
-//       Accept: "application/json",
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(body),
-//   })
-//     .then((response) => response.json())
-//     .then((json) => {
-//       if (playerRef == 1) {
-//         let scoresObject = {};
-//         for (const score in json) {
-//           scoresObject[score] = [
-//             eval(`json.${score}`),
-//             eval(`scoresState.${score}`)[1],
-//           ];
-//         }
-//         console.log("Scores to state: ", scoresObject);
-//         setScoresState(scoresObject);
-//       } else {
-//         let scoresObject = {};
-//         for (const score in json) {
-//           scoresObject[score] = [
-//             eval(`scoresState.${score}`)[0],
-//             eval(`json.${score}`),
-//           ];
-//         }
-//         console.log("Scores to state: ", scoresObject);
-//         setScoresState(scoresObject);
-//         return scoresObject;
-//       }
-//     })
-//     .then(() => {
-//       reset_dice(context);
-//     });
-// }
 
 export function highlightActivePlayer(gameState) {
   if (gameState.active_player == "player1") {

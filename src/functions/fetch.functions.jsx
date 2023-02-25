@@ -1,3 +1,8 @@
+// FUNCTIONS:
+// - getGameState
+// - postGameState
+// - postScores;
+
 import { reset_dice } from "./refresh.functions";
 
 export async function getGameState(setGameState, setScoresState, game_id) {
@@ -42,7 +47,7 @@ export async function getGameState(setGameState, setScoresState, game_id) {
     });
 }
 
-export const updateScoresObject = (scores, player) => {
+const updateScoresObject = (scores, player) => {
   let scoresObject = {
     /* Top score fields */
     ones: [null, null],
