@@ -10,8 +10,6 @@ export function calculateScores(context) {
   for (let playerId = 0; playerId < 2; playerId++) {
     let playerRef = playerId + 1;
 
-    console.log("Calculating scores for player:", playerRef);
-
     let {
       ones,
       twos,
@@ -145,10 +143,8 @@ export function reset_dice(context) {
     numbers = [0, 0, 0, 0, 0, 0];
     if (active_player == "player1") {
       active_player = "player2";
-      console.log("Active player now 2");
     } else {
       active_player = "player1";
-      console.log("Active player now 1");
     }
   } else {
   }
@@ -162,8 +158,6 @@ export function reset_dice(context) {
     scores2_id,
     turns_remaining,
   });
-
-  console.log("Stated turns remaining:", turns_remaining);
 
   setTurnState({ diceValues, heldDice, rollsLeft, numbers });
 }

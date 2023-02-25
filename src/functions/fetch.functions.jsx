@@ -107,7 +107,6 @@ export function postScores(context, body) {
     playerRef = 2;
   }
 
-  console.log(`Putting`, body);
   fetch(`http://127.0.0.1:8000/yahtzee/api/scores/${scores_id}`, {
     method: "PUT",
     headers: {
@@ -126,7 +125,6 @@ export function postScores(context, body) {
             eval(`scoresState.${score}`)[1],
           ];
         }
-        console.log("Scores to state: ", scoresObject);
         setScoresState(scoresObject);
       } else {
         let scoresObject = {};
@@ -136,7 +134,6 @@ export function postScores(context, body) {
             eval(`json.${score}`),
           ];
         }
-        console.log("Scores to state: ", scoresObject);
         setScoresState(scoresObject);
         return scoresObject;
       }

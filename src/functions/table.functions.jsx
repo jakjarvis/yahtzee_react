@@ -32,12 +32,10 @@ export function scoreNumber(context, field, postField, numeric) {
       let score = 0;
       for (let i = 0; i < 5; i++) {
         if (context.turnState.diceValues[i] === numeric) {
-          console.log("Score plus", numeric);
           score += numeric;
         }
       }
       field.textContent = score;
-      console.log("Posting:", bodyGenerator(postField, score));
       postScores(context, bodyGenerator(postField, score));
     }
   } catch (error) {

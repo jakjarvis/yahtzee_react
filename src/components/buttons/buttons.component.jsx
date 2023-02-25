@@ -29,7 +29,6 @@ const Buttons = () => {
   const navigate = useNavigate();
 
   const clickRoll = () => {
-    console.log(turnState.rollsLeft, " rolls left");
     if (turnState.rollsLeft > 0) {
       rollDice(
         id,

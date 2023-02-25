@@ -30,8 +30,6 @@ export function rollDice(
   setTurnState,
   diceImages
 ) {
-  console.log("RollDice called");
-  console.log("Stated turns remaining:", gameState.turns_remaining);
   const [dice1, dice2, dice3, dice4, dice5, dice6] = diceImages;
   let { diceValues, heldDice, rollsLeft, numbers } = turnState;
   rollsLeft -= 1;

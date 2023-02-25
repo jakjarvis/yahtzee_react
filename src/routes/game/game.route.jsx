@@ -12,10 +12,8 @@ import { getGameState } from "../../functions/fetch.functions";
 
 const Game = () => {
   const { id } = useParams();
-  const { gameState, setGameState } = useContext(GameStateContext);
+  const { setGameState } = useContext(GameStateContext);
   const { setScoresState } = useContext(ScoresContext);
-  console.log("Game is: ", id);
-  console.log("Active player is: ", gameState.active_player);
 
   useEffect(() => {
     getGameState(setGameState, setScoresState, id);

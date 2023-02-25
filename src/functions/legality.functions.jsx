@@ -118,10 +118,7 @@ const highlightScore = (legalFunction, scoreField) => {
 };
 
 export function highlight(activePlayer, numbers) {
-  console.log("Highlighting with numbers: ", numbers);
   const activePlayerScores = activePlayerScoreFields(activePlayer);
-  /* Top Section */
-  /*highlightScore(topSectionLegal(onesScore), onesScore);*/
 
   highlightScore(
     topSectionLegal(activePlayerScores.onesScore),
