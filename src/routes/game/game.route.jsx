@@ -21,7 +21,7 @@ const Game = () => {
 
   return (
     <div className="game">
-      <div className="game_board">
+      <div className="game_board" data-testid="game_board">
         <div className="score_zone">
           <ScoreTable />
         </div>

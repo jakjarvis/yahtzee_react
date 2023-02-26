@@ -97,9 +97,9 @@ export function postGameState(game_id, active_player, turns_remaining) {
 }
 
 export function postScores(context, body) {
-  let { gameState, scoresState, setScoresState } = context;
+  let { gameState, setScoresState } = context;
   let scores_id, playerRef;
-  if (gameState.active_player == "player1") {
+  if (gameState.active_player === "player1") {
     scores_id = gameState.scores1_id;
     playerRef = 1;
   } else {
@@ -117,7 +117,7 @@ export function postScores(context, body) {
   })
     .then((response) => response.json())
     .then((json) => {
-      if (playerRef == 1) {
+      if (playerRef === 1) {
         let scoresObject = {};
         for (const score in json) {
           scoresObject[score] = [

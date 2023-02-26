@@ -26,6 +26,7 @@ const ScoreTable = () => {
   const { scoresState, setScoresState } = useContext(ScoresContext);
   const { gameState, setGameState } = useContext(GameStateContext);
   const { turnState, setTurnState } = useContext(TurnStateContext);
+  console.log("Game State:", gameState);
   const activePlayerScores = activePlayerScoreFields(gameState.active_player);
 
   const context = {
@@ -147,26 +148,29 @@ const ScoreTable = () => {
     );
   };
 
-  useEffect(() => {
-    if (gameState.turns_remaining == 0) {
-      calculateScores(context);
-      document.querySelector(".btn-roll").classList.add("hidden");
-      document.querySelector(".btn-reset").classList.remove("hidden");
-      if (
-        parseInt(scoresState.grand_total[0]) >
-        parseInt(scoresState.grand_total[1])
-      ) {
-        document.querySelector(".rolls-text").textContent = "Player 1 wins!";
-      } else if (
-        parseInt(scoresState.grand_total[1]) >
-        parseInt(scoresState.grand_total[0])
-      ) {
-        document.querySelector(".rolls-text").textContent = "Player 2 wins!";
-      } else {
-        document.querySelector(".rolls-text").textContent = "It's a tie!";
+  useEffect(
+    (context, scoresState) => {
+      if (gameState.turns_remaining === 0) {
+        calculateScores(context);
+        document.querySelector(".btn-roll").classList.add("hidden");
+        document.querySelector(".btn-reset").classList.remove("hidden");
+        if (
+          parseInt(scoresState.grand_total[0]) >
+          parseInt(scoresState.grand_total[1])
+        ) {
+          document.querySelector(".rolls-text").textContent = "Player 1 wins!";
+        } else if (
+          parseInt(scoresState.grand_total[1]) >
+          parseInt(scoresState.grand_total[0])
+        ) {
+          document.querySelector(".rolls-text").textContent = "Player 2 wins!";
+        } else {
+          document.querySelector(".rolls-text").textContent = "It's a tie!";
+        }
       }
-    }
-  }, [gameState.turns_remaining]);
+    },
+    [gameState.turns_remaining]
+  );
 
   return (
     <table className="score_card">

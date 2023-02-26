@@ -141,7 +141,7 @@ export function reset_dice(context) {
     rollsLeft = 3;
     rollsCountEl.textContent = rollsLeft;
     numbers = [0, 0, 0, 0, 0, 0];
-    if (active_player == "player1") {
+    if (active_player === "player1") {
       active_player = "player2";
     } else {
       active_player = "player1";
@@ -163,7 +163,7 @@ export function reset_dice(context) {
 }
 
 export function highlightActivePlayer(gameState) {
-  if (gameState.active_player == "player1") {
+  if (gameState.active_player === "player1") {
     document.querySelector(".player1_name").classList.add("active");
     document.querySelector(".player2_name").classList.remove("active");
   } else {

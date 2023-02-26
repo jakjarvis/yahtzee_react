@@ -8,7 +8,6 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { rollDice } from "../../functions/dice.functions";
 import { setupGame } from "../../routes/setup/setup.route";
-import { activePlayerScoreFields } from "../../functions/legality.functions";
 
 import dice1 from "../../assets/dice-1.png";
 import dice2 from "../../assets/dice-2.png";
@@ -24,8 +23,7 @@ const Buttons = () => {
   const { id } = useParams();
   const { turnState, setTurnState } = useContext(TurnStateContext);
   const { gameState, setGameState } = useContext(GameStateContext);
-  const { scoresState, setScoresState } = useContext(ScoresContext);
-  const activePlayerScores = activePlayerScoreFields(gameState.active_player);
+  const { setScoresState } = useContext(ScoresContext);
   const navigate = useNavigate();
 
   const clickRoll = () => {
