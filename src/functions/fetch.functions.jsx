@@ -45,6 +45,7 @@ export async function getGameState(setGameState, setScoresState, game_id) {
     .then((value) => {
       setScoresState(value);
     });
+  return;
 }
 
 const updateScoresObject = (scores, player) => {

@@ -3,7 +3,7 @@
 // - reset_dice
 // - highlightActivePlayer
 
-import { postGameState, postScores } from "../functions/fetch.functions";
+import { postGameState, postScores } from "./fetch.functions";
 
 export function calculateScores(context) {
   let scoresObject = context.scoresState;
