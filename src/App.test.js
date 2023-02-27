@@ -5,6 +5,8 @@ import { GameStateProvider } from "./contexts/game-state.context";
 import { ScoresProvider } from "./contexts/scores.context";
 import { MemoryRouter } from "react-router-dom";
 
+jest.mock("./routes/game/game.route.jsx");
+
 describe("<App />", () => {
   it("routes to the setup page", () => {
     const setupPath = "/setup";
@@ -18,22 +20,22 @@ describe("<App />", () => {
     expect(screen.getByText(/Set up a new game/i)).toBeInTheDocument();
   });
 
-  // REACTIVATE THIS TEST WITH MOCKED GAME COMPONENT
-  // it("routes to the game page", async () => {
-  //   const gamePath = "/game/25";
+  it("routes to the game page", () => {
+    const id = 25;
+    const gamePath = `/game/${id}`;
 
-  //   render(
-  //     <MemoryRouter initialEntries={[gamePath]}>
-  //       <GameStateProvider>
-  //         <ScoresProvider>
-  //           <App />
-  //         </ScoresProvider>
-  //       </GameStateProvider>
-  //     </MemoryRouter>
-  //   );
+    render(
+      <MemoryRouter initialEntries={[gamePath]}>
+        <GameStateProvider>
+          <ScoresProvider>
+            <App />
+          </ScoresProvider>
+        </GameStateProvider>
+      </MemoryRouter>
+    );
 
-  //   expect(screen.getByTestId("game_board")).toBeInTheDocument();
-  // });
+    expect(screen.getByText(`Game ${id}`)).toBeInTheDocument();
+  });
 
   it("routes to the 404 page on incorrect url", () => {
     const incorrectPath = "/wrong-url";
