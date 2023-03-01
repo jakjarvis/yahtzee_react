@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { rollDice } from "../../functions/dice.functions";
-import { setupGame } from "../../routes/setup/setup.route";
+import { setupGame } from "../../functions/fetch.functions";
 
 import dice1 from "../../assets/dice-1.png";
 import dice2 from "../../assets/dice-2.png";
