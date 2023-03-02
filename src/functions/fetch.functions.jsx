@@ -1,12 +1,17 @@
 // FUNCTIONS:
 // - setupGame
 // - getGameState
-// - postGameState
+// - postAndSetGameState
 // - postScores;
 
 import { reset_dice } from "./refresh.functions";
 
-const alertWindow = (body, user_array) => {
+const serverAlert = (error) => {
+  window.alert("Sorry, it looks like the server is down...");
+  console.log(error);
+};
+
+export const guestAlert = (body, user_array) => {
   if (user_array[0] == false && user_array[1] == false) {
     window.alert(
       `${body.player1} and ${body.player2} are not registered users. These players will play as Guests.`
@@ -40,63 +45,22 @@ export async function setupGame(navigate, player1Name, player2Name) {
     body: JSON.stringify(body),
   })
     .then((response) => {
-      console.log("Response", response, typeof response);
+      // console.log("Response", response, typeof response);
       return response.json();
     })
     .then((json) => {
-      console.log("json", json, typeof json);
+      // console.log("json", json, typeof json);
       url = `/game/${json["game_id"]}`;
-      alertWindow(body, json["user_array"]);
+      guestAlert(body, json["user_array"]);
       navigate(url);
-    });
+    })
+    .catch((error) => serverAlert(error));
 
   return url;
 }
 
 export async function getGameState(setGameState, setScoresState, game_id) {
-  let stateObject = {
-    active_player: null,
-    player1_name: null,
-    player2_name: null,
-    scores1_id: null,
-    scores2_id: null,
-    turns_remaining: null,
-  };
-  await fetch(`http://127.0.0.1:8000/yahtzee/api/game/${game_id}`)
-    .then((response) => response.json())
-    .then((state) => {
-      for (var property in state) {
-        stateObject[property] = state[property][0];
-      }
-      return stateObject;
-    })
-    .then((state) => {
-      setGameState(state);
-    });
-
-  await fetch(
-    `http://127.0.0.1:8000/yahtzee/api/scores/${stateObject.scores1_id}`
-  )
-    .then((response) => response.json())
-    .then((scores) => {
-      updateScoresObject(scores, 0);
-    });
-
-  await fetch(
-    `http://127.0.0.1:8000/yahtzee/api/scores/${stateObject.scores2_id}`
-  )
-    .then((response) => response.json())
-    .then((scores) => {
-      let scoresObject = updateScoresObject(scores, 1);
-      return scoresObject;
-    })
-    .then((value) => {
-      setScoresState(value);
-    });
-  return;
-}
-
-const updateScoresObject = (scores, player) => {
+  let stateObject = {};
   let scoresObject = {
     /* Top score fields */
     ones: [null, null],
@@ -122,18 +86,59 @@ const updateScoresObject = (scores, player) => {
     bottom_total: [null, null],
     grand_total: [null, null],
   };
+  await fetch(`http://127.0.0.1:8000/yahtzee/api/game/${game_id}`)
+    .then((response) => response.json())
+    .then((state) => {
+      for (var property in state) {
+        stateObject[property] = state[property][0];
+      }
+      return stateObject;
+    })
+    .then((state) => {
+      setGameState(state);
+    })
+    .catch((error) => serverAlert(error));
+
+  await fetch(
+    `http://127.0.0.1:8000/yahtzee/api/scores/${stateObject.scores1_id}`
+  )
+    .then((response) => response.json())
+    .then((scores) => {
+      scoresObject = updateScoresObject(scoresObject, scores, 0);
+    })
+    .catch((error) => console.log(error));
+
+  await fetch(
+    `http://127.0.0.1:8000/yahtzee/api/scores/${stateObject.scores2_id}`
+  )
+    .then((response) => response.json())
+    .then((scores) => {
+      scoresObject = updateScoresObject(scoresObject, scores, 1);
+      return scoresObject;
+    })
+    .then((value) => {
+      setScoresState(value);
+    })
+    .catch((error) => console.log(error));
+  return;
+}
+
+const updateScoresObject = (scoresObject, scores, player) => {
   for (const score in scores) {
     scoresObject[score][player] = scores[score];
   }
   return scoresObject;
 };
 
-export function postGameState(game_id, active_player, turns_remaining) {
+export async function putAndSetGameState(context) {
+  let { game_id, gameState, setGameState } = context;
+  let { active_player, turns_remaining, ...restGameState } = gameState;
+
   let body = {
     active_player: active_player,
     turns_remaining: turns_remaining,
   };
-  fetch(`http://127.0.0.1:8000/yahtzee/api/game/${game_id}`, {
+  await fetch(`http://127.0.0.1:8000/yahtzee/api/game/${game_id}`, {
     method: "PUT",
     headers: {
       Accept: "application/json",
@@ -142,11 +147,18 @@ export function postGameState(game_id, active_player, turns_remaining) {
     body: JSON.stringify(body),
   })
     .then((response) => response.json())
-    .then((json) => console.log(json));
+    .then((json) => {
+      setGameState({
+        active_player: json.active_player[0],
+        turns_remaining: json.turns_remaining[0],
+        ...restGameState,
+      });
+    })
+    .catch((error) => serverAlert(error));
 }
 
-export function postScores(context, body) {
-  let { gameState, setScoresState } = context;
+export async function putAndSetScores(context, body) {
+  let { gameState, scoresState, setScoresState } = context; // scoreState must remain in becuase of eval call
   let scores_id, playerRef;
   if (gameState.active_player === "player1") {
     scores_id = gameState.scores1_id;
@@ -156,7 +168,7 @@ export function postScores(context, body) {
     playerRef = 2;
   }
 
-  fetch(`http://127.0.0.1:8000/yahtzee/api/scores/${scores_id}`, {
+  await fetch(`http://127.0.0.1:8000/yahtzee/api/scores/${scores_id}`, {
     method: "PUT",
     headers: {
       Accept: "application/json",
@@ -189,5 +201,6 @@ export function postScores(context, body) {
     })
     .then(() => {
       reset_dice(context);
-    });
+    })
+    .catch((error) => serverAlert(error));
 }

@@ -1,9 +1,8 @@
 // FUNCTIONS:
 // - calculateScores
-// - reset_dice
 // - highlightActivePlayer
 
-import { postGameState, postScores } from "./fetch.functions";
+import { putAndSetGameState, putAndSetScores } from "./fetch.functions";
 
 export function calculateScores(context) {
   let scoresObject = context.scoresState;
@@ -79,28 +78,15 @@ export function calculateScores(context) {
   for (const score in scoresObject) {
     player2scores[score] = scoresObject[score][1];
   }
-  postScores(context, player1scores);
-  postScores(context, player2scores);
+  putAndSetScores(context, player1scores);
+  putAndSetScores(context, player2scores);
 }
 
 export function reset_dice(context) {
-  let {
-    game_id,
-    gameState,
-    setGameState,
-    turnState,
-    setTurnState,
-    activePlayerScores,
-  } = context;
+  let { gameState, ...restContext } = context;
+  let { turnState, setTurnState, activePlayerScores } = context;
 
-  let {
-    active_player,
-    player1_name,
-    player2_name,
-    scores1_id,
-    scores2_id,
-    turns_remaining,
-  } = gameState;
+  let { active_player, turns_remaining, ...restGameState } = gameState;
 
   let { diceValues, heldDice, rollsLeft, numbers } = turnState;
 
@@ -149,16 +135,10 @@ export function reset_dice(context) {
   } else {
   }
 
-  postGameState(game_id, active_player, turns_remaining);
-  setGameState({
-    active_player,
-    player1_name,
-    player2_name,
-    scores1_id,
-    scores2_id,
-    turns_remaining,
+  putAndSetGameState({
+    gameState: { active_player, turns_remaining, ...restGameState },
+    ...restContext,
   });
-
   setTurnState({ diceValues, heldDice, rollsLeft, numbers });
 }
 

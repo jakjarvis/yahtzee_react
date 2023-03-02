@@ -26,7 +26,6 @@ const ScoreTable = () => {
   const { scoresState, setScoresState } = useContext(ScoresContext);
   const { gameState, setGameState } = useContext(GameStateContext);
   const { turnState, setTurnState } = useContext(TurnStateContext);
-  console.log("Game State:", gameState);
   const activePlayerScores = activePlayerScoreFields(gameState.active_player);
 
   const context = {
