@@ -6,6 +6,8 @@
 
 import { reset_dice } from "./refresh.functions";
 
+const rootURL = "https://apps.jakjarvis.com/";
+
 const serverAlert = (error) => {
   window.alert("Sorry, it looks like the server is down...");
   console.log(error);
@@ -36,7 +38,7 @@ export async function setupGame(navigate, player1Name, player2Name) {
   console.log("Players:", body);
 
   let url;
-  await fetch("http://127.0.0.1:8000/yahtzee/api/setup", {
+  await fetch(`${rootURL}/yahtzee/api/setup`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -86,7 +88,7 @@ export async function getGameState(setGameState, setScoresState, game_id) {
     bottom_total: [null, null],
     grand_total: [null, null],
   };
-  await fetch(`http://127.0.0.1:8000/yahtzee/api/game/${game_id}`)
+  await fetch(`${rootURL}/yahtzee/api/game/${game_id}`)
     .then((response) => response.json())
     .then((state) => {
       for (var property in state) {
@@ -99,18 +101,14 @@ export async function getGameState(setGameState, setScoresState, game_id) {
     })
     .catch((error) => serverAlert(error));
 
-  await fetch(
-    `http://127.0.0.1:8000/yahtzee/api/scores/${stateObject.scores1_id}`
-  )
+  await fetch(`${rootURL}/yahtzee/api/scores/${stateObject.scores1_id}`)
     .then((response) => response.json())
     .then((scores) => {
       scoresObject = updateScoresObject(scoresObject, scores, 0);
     })
     .catch((error) => console.log(error));
 
-  await fetch(
-    `http://127.0.0.1:8000/yahtzee/api/scores/${stateObject.scores2_id}`
-  )
+  await fetch(`${rootURL}/yahtzee/api/scores/${stateObject.scores2_id}`)
     .then((response) => response.json())
     .then((scores) => {
       scoresObject = updateScoresObject(scoresObject, scores, 1);
@@ -138,7 +136,7 @@ export async function putAndSetGameState(context) {
     active_player: active_player,
     turns_remaining: turns_remaining,
   };
-  await fetch(`http://127.0.0.1:8000/yahtzee/api/game/${game_id}`, {
+  await fetch(`${rootURL}/yahtzee/api/game/${game_id}`, {
     method: "PUT",
     headers: {
       Accept: "application/json",
@@ -168,7 +166,7 @@ export async function putAndSetScores(context, body) {
     playerRef = 2;
   }
 
-  await fetch(`http://127.0.0.1:8000/yahtzee/api/scores/${scores_id}`, {
+  await fetch(`${rootURL}/yahtzee/api/scores/${scores_id}`, {
     method: "PUT",
     headers: {
       Accept: "application/json",
