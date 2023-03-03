@@ -9,8 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_YAHT_F96B0 }}'
-          projectId: yaht-f96b0
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_YAHTZEE_REACT_D1204 }}'
+          projectId: yahtzee-react-d1204
