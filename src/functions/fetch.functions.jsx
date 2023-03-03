@@ -6,7 +6,7 @@
 
 import { reset_dice } from "./refresh.functions";
 
-const rootURL = "https://apps.jakjarvis.com/";
+const rootURL = "https://apps.jakjarvis.com";
 
 const serverAlert = (error) => {
   window.alert("Sorry, it looks like the server is down...");
