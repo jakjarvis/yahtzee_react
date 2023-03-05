@@ -44,10 +44,6 @@ const Buttons = () => {
     await getGameState(setGameState, setScoresState, id);
   }
 
-  function extraClick() {
-    console.log(turnState);
-  }
-
   return (
     <div className="buttons">
       <Button type="button" buttonClass={"btn-roll"} onClick={clickRoll}>
@@ -55,9 +51,6 @@ const Buttons = () => {
       </Button>
       <Button type="button" buttonClass={"btn-replay"} onClick={clickReplay}>
         Play Again?
-      </Button>
-      <Button type="button" buttonClass={"btn-extra"} onClick={extraClick}>
-        Extra
       </Button>
     </div>
   );
