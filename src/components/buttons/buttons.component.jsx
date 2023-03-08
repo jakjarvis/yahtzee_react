@@ -1,4 +1,5 @@
 import Button from "../button/button.component";
+import "./buttons.styles.css";
 import { TurnStateContext } from "../../contexts/turn-state.context";
 import { GameStateContext } from "../../contexts/game-state.context";
 import { ScoresContext } from "../../contexts/scores.context";

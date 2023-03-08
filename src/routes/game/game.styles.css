@@ -1,13 +1,3 @@
-/* body {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../../assets/pexels-barnabas-davoti-11556304.jpg");
-  background-size: cover;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  text-align: center;
-  font-family: "Luminari", sans-serif;
-} */
-
 /* Board layout */
 .title_bar {
   width: 100%;
@@ -108,22 +98,6 @@ table {
   position: absolute;
   top: 15vw;
   left: 15vw;
-}
-
-.buttons {
-  position: absolute;
-  top: 30vw;
-  left: 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.btn {
-  font-family: inherit;
-  background-color: #e7c9a9;
-  height: 25px;
-  z-index: 1;
 }
 
 .rolls-counter {

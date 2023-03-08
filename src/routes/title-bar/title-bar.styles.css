@@ -1,3 +1,25 @@
 .title_bar {
   color: #e7c9a9;
 }
+
+.btn_modal {
+  font-family: Luminari;
+  margin: 20px;
+}
+
+.modal {
+  position: absolute;
+  top: 25vh;
+  left: 25vw;
+  width: 50vw;
+  height: 50vh;
+  border-style: solid;
+  background-color: rgb(124, 184, 219);
+  border-radius: 2vh;
+  font-family: "Courier New", Courier, monospace;
+  z-index: 10;
+}
+
+.modal_content {
+  margin: 10px;
+}
