@@ -91,12 +91,7 @@ export async function getGameState(setGameState, setScoresState, game_id) {
   await fetch(`${rootURL}/yahtzee/api/game/${game_id}`)
     .then((response) => response.json())
     .then((state) => {
-      for (var property in state) {
-        stateObject[property] = state[property][0];
-      }
-      return stateObject;
-    })
-    .then((state) => {
+      stateObject = state;
       setGameState(state);
     })
     .catch((error) => serverAlert(error));
@@ -147,8 +142,8 @@ export async function putAndSetGameState(context) {
     .then((response) => response.json())
     .then((json) => {
       setGameState({
-        active_player: json.active_player[0],
-        turns_remaining: json.turns_remaining[0],
+        active_player: json.active_player,
+        turns_remaining: json.turns_remaining,
         ...restGameState,
       });
     })

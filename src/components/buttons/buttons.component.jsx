@@ -50,8 +50,19 @@ const Buttons = () => {
       <Button type="button" buttonClass={"btn-roll"} onClick={clickRoll}>
         Roll
       </Button>
-      <Button type="button" buttonClass={"btn-replay"} onClick={clickReplay}>
+      <Button
+        type="button"
+        buttonClass={"btn-replay hidden"}
+        onClick={clickReplay}
+      >
         Play Again?
+      </Button>
+      <Button
+        type="button"
+        buttonClass={"btn-replay"}
+        onClick={console.log(gameState)}
+      >
+        Test
       </Button>
     </div>
   );

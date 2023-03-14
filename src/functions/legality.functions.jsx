@@ -105,6 +105,7 @@ export function activePlayerScoreFields(activePlayer) {
 }
 
 const highlightScore = (legalFunction, scoreField) => {
+  console.log("Score field", scoreField);
   if (legalFunction === true) {
     scoreField.classList.add("legal");
     scoreField.classList.remove("nullable");
@@ -118,8 +119,9 @@ const highlightScore = (legalFunction, scoreField) => {
 };
 
 export function highlight(activePlayer, numbers) {
+  console.log("Active player", activePlayer);
   const activePlayerScores = activePlayerScoreFields(activePlayer);
-
+  console.log("Active player scores", activePlayerScores);
   highlightScore(
     topSectionLegal(activePlayerScores.onesScore),
     activePlayerScores.onesScore
