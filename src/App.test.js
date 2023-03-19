@@ -6,6 +6,7 @@ import { ScoresProvider } from "./contexts/scores.context";
 import { MemoryRouter } from "react-router-dom";
 
 jest.mock("./routes/game/game.route.jsx");
+jest.mock("./routes/title-bar/title-bar.route.jsx");
 
 describe("<App />", () => {
   it("routes to the setup page", () => {

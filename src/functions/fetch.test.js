@@ -24,12 +24,12 @@ const exampleTurnState = {
 };
 
 const exampleGameResponse = {
-  active_player: ["player1"],
-  player1_name: [6],
-  player2_name: [6],
-  scores1_id: [9],
-  scores2_id: [10],
-  turns_remaining: [25],
+  active_player: "player1",
+  player1_name: 6,
+  player2_name: 6,
+  scores1_id: 9,
+  scores2_id: 10,
+  turns_remaining: 25,
 };
 
 const exampleGameState = {
@@ -146,7 +146,7 @@ describe("getGameState()", () => {
     await getGameState(logGame, logScores, 1);
     expect(logGame).toHaveBeenCalledTimes(1);
     expect(logGame).toHaveBeenCalledWith(
-      expect.objectContaining({ scores1_id: exampleGameResponse.scores1_id[0] })
+      expect.objectContaining({ scores1_id: exampleGameResponse.scores1_id })
     );
   });
 
