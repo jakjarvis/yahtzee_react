@@ -6,7 +6,7 @@ import "./title-bar.styles.css";
 
 import Button from "../../components/button/button.component";
 
-Modal.setAppElement("#root");
+//Modal.setAppElement("#root");
 
 const TitleBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,15 +17,20 @@ const TitleBar = () => {
     <Fragment>
       <div className="title_bar">
         <h1>Yahtzee!</h1>
-        <Button type="button" buttonClass={"btn_modal"} onClick={toggleModal}>
+        <Button type="button" buttonClass={"btn_about"} onClick={toggleModal}>
           About
         </Button>
       </div>
-      <Modal className="modal" isOpen={isOpen} onRequestClose={toggleModal}>
+      <Modal
+        className="modal"
+        isOpen={isOpen}
+        onRequestClose={toggleModal}
+        appElement={document.querySelector("#root")}
+      >
         <div className="modal_content">
           <h3>Yahtzee V3 - Overview</h3>
           <p>
-            This version of the Yahtzee web app uses a Reach Frontend to render
+            This version of the Yahtzee web app uses a React Frontend to render
             the game, while fetching data from REST APIs built into the Django
             backend from Version 2. This allows saving of games and rendering of
             data directly from the backend, while minimizing flashing when the
@@ -44,7 +49,9 @@ const TitleBar = () => {
           </a>
           <br />
           <br />
-          <Button onClick={toggleModal}>Close Modal</Button>
+          <Button buttonClass={"btn_close"} onClick={toggleModal}>
+            Close Modal
+          </Button>
         </div>
       </Modal>
       <Outlet />
