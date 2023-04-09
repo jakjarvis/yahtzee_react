@@ -151,20 +151,26 @@ const ScoreTable = () => {
     (context, scoresState) => {
       if (gameState.turns_remaining === 0) {
         calculateScores(context);
-        document.querySelector(".btn-roll").classList.add("hidden");
-        document.querySelector(".btn-reset").classList.remove("hidden");
-        if (
-          parseInt(scoresState.grand_total[0]) >
-          parseInt(scoresState.grand_total[1])
-        ) {
-          document.querySelector(".rolls-text").textContent = "Player 1 wins!";
-        } else if (
-          parseInt(scoresState.grand_total[1]) >
-          parseInt(scoresState.grand_total[0])
-        ) {
-          document.querySelector(".rolls-text").textContent = "Player 2 wins!";
-        } else {
-          document.querySelector(".rolls-text").textContent = "It's a tie!";
+        try {
+          if (
+            parseInt(scoresState.grand_total[0]) >
+            parseInt(scoresState.grand_total[1])
+          ) {
+            document.querySelector(".rolls-text").textContent =
+              "Player 1 wins!";
+          } else if (
+            parseInt(scoresState.grand_total[1]) >
+            parseInt(scoresState.grand_total[0])
+          ) {
+            document.querySelector(".rolls-text").textContent =
+              "Player 2 wins!";
+          } else {
+            document.querySelector(".rolls-text").textContent = "It's a tie!";
+          }
+          document.querySelector(".btn-roll").classList.add("hidden");
+          document.querySelector(".btn-reset").classList.remove("hidden");
+        } catch (error) {
+          console.log(error);
         }
       }
     },
@@ -390,3 +396,63 @@ const ScoreTable = () => {
 };
 
 export default ScoreTable;
+
+// Initial attempts at generating scorelines via map:
+
+// const clickFunction = (scoreName, reference_digit) => {
+//   let scoreFunction = topSection[scoreName].scoreFunction;
+//   console.log(
+//     `.${scoreName}P${activePlayerRef}`,
+//     document.querySelector(`.${scoreName}P${activePlayerRef}`)
+//   );
+//   let functionInputs = [
+//     context,
+//     document.querySelector(`.${scoreName}P${activePlayerRef}`),
+//     scoreName,
+//   ];
+//   if (reference_digit != 0) {
+//     functionInputs.push(reference_digit);
+//   }
+//   try {
+//     scoreFunction(functionInputs);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// const topSection = {
+//   ones: {
+//     reference_digit: 1,
+//     scoreName: "ones",
+//     scoreFunction: scoreNumber,
+//   },
+// };
+
+// const ScoreLine = ({ reference_digit, scoreName }) => {
+//   return (
+//     <tr className="score-line">
+//       <th>{reference_digit}s</th>
+//       <th className="scoring">Sum of all {scoreName} thrown</th>
+//       <th
+//         className={`score ${scoreName}P1`}
+//         onClick={clickFunction(scoreName, reference_digit)}
+//       >
+//         {displayScore(scoresState[scoreName][0])}
+//       </th>
+//       <th
+//         className={`score ${scoreName}P2`}
+//         onClick={clickFunction(scoreName, reference_digit)}
+//       >
+//         {displayScore(scoresState[scoreName][1])}
+//       </th>
+//     </tr>
+//   );
+// };
+
+// {Object.entries(topSection).map(([key, values], index) => (
+//   <ScoreLine
+//     key={index}
+//     reference_digit={values.reference_digit}
+//     scoreName={values.scoreName}
+//   />
+// ))}
