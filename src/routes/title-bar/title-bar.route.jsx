@@ -34,7 +34,9 @@ const TitleBar = () => {
             the game, while fetching data from REST APIs built into the Django
             backend from Version 2. This allows saving of games and rendering of
             data directly from the backend, while minimizing flashing when the
-            game rerenders.
+            game rerenders. It also features automated tests for new code
+            generated for V3 (i.e. backend API, frontend calls, React routes and
+            components).
           </p>
           <br />
           The source code can be found at:
